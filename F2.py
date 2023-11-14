@@ -25,7 +25,7 @@ def cadastro_e_alteracao_de_escolaridade():
     try:
         print("######### TELA ESCOLARIDADE ##########")
         print("Cadastro e alteração de escolaridade")
-        sleep(3)  # Espera até 3 segundos por elementos
+        navegador.implicitly_wait(10)  # Espera até 3 segundos por elementos
 
         navegador.get("https://felipe.testes.smart.sgisistemas.com.br/escolaridades")
         print('### Abrindo cadastro de escolaridade')
@@ -40,17 +40,17 @@ def cadastro_e_alteracao_de_escolaridade():
 
         # Clique no botão "Salvar"
         navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/form/div[3]/div/input[2]').click()
-        sleep(3)
+        navegador.implicitly_wait(10)
 
         # Preenche o campo "descricao" com o valor "Escolaridade Automática Alterada"
         nome_element = navegador.find_element(By.XPATH, '//*[@id="descricao"]')
         nome_element.send_keys('Escolaridade Automática Alterada')
         print('### Preenchido campo "descricao" com "Escolaridade Automática Alterada')
-        sleep(3)
+        navegador.implicitly_wait(10)
 
         # Clique no botão "Salvar" novamente
         navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/form/div[3]/div/input[1]').click()
-        sleep(5)
+        navegador.implicitly_wait(10)
 
         # Obtenha o código da escolaridade
         codigo_escolaridade = navegador.find_element(By.CLASS_NAME, "campo_id")
@@ -77,17 +77,17 @@ def cadastro_e_alteracao_de_tipo_dependente():
 
         # Clique no botão "Salvar"
         navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/form/div[2]/div/input[2]').click()
-        sleep(3)
+        navegador.implicitly_wait(10)
 
         # Preenche o campo "descricao" com o valor "Tipo dependente alterada"
         nome_element = navegador.find_element(By.XPATH, '//*[@id="descricao"]')
         nome_element.send_keys('Tipo dependente alterada')
         print('### Preenchido campo "descricao" com "Tipo dependente alterada"')
-        sleep(3)
+        navegador.implicitly_wait(10)
 
         # Clique no botão "Salvar" novamente
         navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/form/div[2]/div/input[1]').click()
-        sleep(3)
+        navegador.implicitly_wait(10)
 
     finally:
         print('>> Encerrando função cadastro_e_alteracao_de_tipo_dependente.')
@@ -122,7 +122,7 @@ def configuracoes_mva_antecipacoes():
         # Encontre o campo "autocompletar_produtos" e preencha-o
         nome_element = navegador.find_element(By.XPATH, '//*[@id="autocompletar_produtos"]')
         nome_element.send_keys('7410')
-        sleep(2)
+        navegador.implicitly_wait(10)
         print('### Passei produto.')
 
         # Use pyautogui para pressionar teclas
@@ -142,13 +142,13 @@ def configuracoes_mva_antecipacoes():
         nome_element = navegador.find_element(By.XPATH, '//*[@id="percentual_mva_antecipacao"]')
         nome_element.send_keys('0')
         print('### Passei % de MVA Antecipação alterado.')
-        sleep(3)
+        navegador.implicitly_wait(10)
         # Clique no botão "Salvar" novamente
         navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/form/div[5]/div/input[1]').click()
-        sleep(3)
+        navegador.implicitly_wait(10)
         # Clique no link para excluir o cadastro
         navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/div/div[2]/div[2]/table/tbody/tr/td[1]/a').click()
-        sleep(3)
+        navegador.implicitly_wait(10)
         # Clique no botão "Excluir"
         navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/form/div[5]/div/a[2]').click()
 
@@ -261,13 +261,13 @@ def adicionar_especificacao_produto():
         WebDriverWait(navegador, 10).until(
             EC.element_to_be_clickable((By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/form/div[3]/div/input[2]'))
         ).click()
-        sleep(2)
+        navegador.implicitly_wait(10)
         print('Lista Pré-definida')
         # Selecione o tipo "Lista Pré-definida"
         WebDriverWait(navegador, 10).until(
             EC.element_to_be_clickable((By.XPATH, '//*[@id="tipo"]'))
         ).click()
-        sleep(2)
+        navegador.implicitly_wait(10)
         pyautogui.hotkey('down')
         pyautogui.hotkey('tab')
 
@@ -289,11 +289,11 @@ def adicionar_especificacao_produto():
 
         print('Sim/Não')
         # Selecione o tipo "Sim/Não"
-        sleep(2)
+        navegador.implicitly_wait(10)
         WebDriverWait(navegador, 10).until(
             EC.element_to_be_clickable((By.XPATH, '//*[@id="tipo"]'))
         ).click()
-        sleep(2)
+        navegador.implicitly_wait(10)
         pyautogui.hotkey('down')
         pyautogui.hotkey('tab')
 
@@ -320,12 +320,12 @@ def adicionar_especificacao_produto():
         WebDriverWait(navegador, 10).until(
             EC.element_to_be_clickable((By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/form/div[3]/div/input[2]'))
         ).click()
-        sleep(3)
+        navegador.implicitly_wait(10)
         # Clique no botão "Excluir"
         WebDriverWait(navegador, 10).until(
             EC.element_to_be_clickable((By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/form/div[3]/div/a[2]'))
         ).click()
-        sleep(2)
+        navegador.implicitly_wait(10)
 
         # Confirme a exclusão
         WebDriverWait(navegador, 10).until(
@@ -353,17 +353,17 @@ def configuracoes_tipos_montagens_produtos():
          pyautogui.hotkey('down')
          pyautogui.hotkey('tab')
          tp_mont = navegador.find_element(By.XPATH,'//*[@id="autocompletar_tipo_montagem_id"]')
-         sleep(3)
+         navegador.implicitly_wait(10)
          tp_mont.send_keys('Cliente')
-         sleep(3)
+         navegador.implicitly_wait(10)
          pyautogui.hotkey('down')
          pyautogui.hotkey('tab')
-         sleep(3)
+         navegador.implicitly_wait(10)
          navegador.find_element(By.XPATH,'/html/body/div[4]/div[1]/div[2]/div[2]/form/div[3]/div/div/div/div').click()
-         sleep(3)
+         navegador.implicitly_wait(10)
          inf_campo = navegador.find_element(By.XPATH,'/html/body/div[4]/div[1]/div[2]/div[2]/form/div[3]/div/div/div/div/ul[1]/li[1]/div')
          pyautogui.hotkey('B','a','s','e')
-         sleep(3)
+         navegador.implicitly_wait(10)
          pyautogui.hotkey('down')
          pyautogui.hotkey('down')
          pyautogui.hotkey('down')
@@ -371,74 +371,74 @@ def configuracoes_tipos_montagens_produtos():
          pyautogui.hotkey('down')
          pyautogui.hotkey('tab')
          navegador.find_element(By.XPATH,'/html/body/div[4]/div[1]/div[2]/div[2]/form/div[8]/div/input[2]').click()
-         sleep(3)
+         navegador.implicitly_wait(10)
          print('Escopo Departamento')
          navegador.find_element(By.XPATH,'//*[@id="escopo_type"]').click()
          pyautogui.hotkey('down')
          pyautogui.hotkey('tab')
-         sleep(3)
+         navegador.implicitly_wait(10)
          inf_campo = navegador.find_element(By.XPATH,'/html/body/div[4]/div[1]/div[2]/div[2]/form/div[7]/div/div/div/div/ul[1]/li[1]/div')
          inf_campo.click()
-         sleep(3)
+         navegador.implicitly_wait(10)
          pyautogui.hotkey('M','O','V','E')
-         sleep(3)
+         navegador.implicitly_wait(10)
          pyautogui.hotkey('down')
          pyautogui.hotkey('tab')
-         sleep(3)
+         navegador.implicitly_wait(10)
          navegador.find_element(By.XPATH,'/html/body/div[4]/div[1]/div[2]/div[2]/form/div[8]/div/input[2]').click()
-         sleep(3)
+         navegador.implicitly_wait(10)
          print('Escopo Grupo do Produto')
          navegador.find_element(By.XPATH,'//*[@id="escopo_type"]').click()
          pyautogui.hotkey('down')
          pyautogui.hotkey('tab')
-         sleep(3)
+         navegador.implicitly_wait(10)
          inf_campo = navegador.find_element(By.XPATH,'/html/body/div[4]/div[1]/div[2]/div[2]/form/div[6]/div/div/div/div/ul[1]/li[1]/div')
          inf_campo.click()
-         sleep(3)
+         navegador.implicitly_wait(10)
          pyautogui.hotkey('P','L','A','N','E','J','A')
-         sleep(3)
+         navegador.implicitly_wait(10)
          pyautogui.hotkey('down')
          pyautogui.hotkey('tab')
-         sleep(3)
+         navegador.implicitly_wait(10)
          navegador.find_element(By.XPATH,'/html/body/div[4]/div[1]/div[2]/div[2]/form/div[8]/div/input[2]').click()
 
-         sleep(3)
+         navegador.implicitly_wait(10)
          print('Escopo Subgrupo do Produto')
          navegador.find_element(By.XPATH,'//*[@id="escopo_type"]').click()
          pyautogui.hotkey('down')
          pyautogui.hotkey('tab')
-         sleep(3)
+         navegador.implicitly_wait(10)
          inf_campo = navegador.find_element(By.XPATH,'/html/body/div[4]/div[1]/div[2]/div[2]/form/div[5]/div/div/div/div/ul[1]/li[1]/div')
          inf_campo.click()
-         sleep(3)
+         navegador.implicitly_wait(10)
          pyautogui.hotkey('H','O','M','E')
-         sleep(3)
+         navegador.implicitly_wait(10)
          pyautogui.hotkey('down')
          pyautogui.hotkey('tab')
-         sleep(3)
+         navegador.implicitly_wait(10)
          navegador.find_element(By.XPATH,'/html/body/div[4]/div[1]/div[2]/div[2]/form/div[8]/div/input[2]').click()
 
-         sleep(3)
+         navegador.implicitly_wait(10)
          print('Produto')
          navegador.find_element(By.XPATH,'//*[@id="escopo_type"]').click()
          pyautogui.hotkey('down')
          pyautogui.hotkey('tab')
-         sleep(3)
+         navegador.implicitly_wait(10)
          inf_campo = navegador.find_element(By.XPATH,'/html/body/div[4]/div[1]/div[2]/div[2]/form/div[4]/div/div/div/div/ul[1]/li[1]/div')
          inf_campo.click()
-         sleep(3)
+         navegador.implicitly_wait(10)
          pyautogui.hotkey('7','4','1','1')
-         sleep(3)
+         navegador.implicitly_wait(10)
          pyautogui.hotkey('down')
          pyautogui.hotkey('tab')
-         sleep(3)
+         navegador.implicitly_wait(10)
          navegador.find_element(By.XPATH,'/html/body/div[4]/div[1]/div[2]/div[2]/form/div[8]/div/input[2]').click()
          print('### TODOS OS ESCOPOS FORAM CADASTRADOS')
-         sleep(3)
+         navegador.implicitly_wait(10)
          navegador.find_element(By.XPATH,'/html/body/div[4]/div[1]/div[2]/div[2]/form/div[8]/div/a[2]').click()
          navegador.find_element(By.XPATH,'/html/body/div[8]/div/div/div[2]/button[2]').click()
          print('Realizado exclusão')
-         sleep(3)
+         navegador.implicitly_wait(10)
 
      finally:
          #navegador.quit()
@@ -459,20 +459,20 @@ def cadastrar_pessoa():
     navegador.get(url)
 
     print('### Novo navegador aberto.\n#### Gerador de CPF\n##### 3 segundos para prosseguir')
-    sleep(5)
+    navegador.implicitly_wait(10)
 
     navegador.find_element(By.ID, 'bt_gerar_cpf').click()
-    sleep(3)
+    navegador.implicitly_wait(10)
     navegador.find_element(By.ID, 'texto_cpf').click()
-    sleep(3)
+    navegador.implicitly_wait(10)
     navegador.find_element(By.CLASS_NAME, "clipboard-copy").click()
     print('### CPF copiado.')
     CPFcopiado = clipboard.paste()
-    sleep(3)
+    navegador.implicitly_wait(10)
     navegador.close()
     navegador.switch_to.window(janelas[0])
     print('### Gerador de CPF encerrado.')
-    sleep(5)
+    navegador.implicitly_wait(10)
     nome_element = navegador.find_element(By.NAME, 'pessoa[nome]')
     nome_element.send_keys('Nome automatizado')
     print('### Passei nome.')
@@ -481,10 +481,10 @@ def cadastrar_pessoa():
     nome_element.send_keys('Apelido automatizado')
     print('### Passei apelido.')
 
-    sleep(3)
+    navegador.implicitly_wait(10)
     navegador.find_element(By.NAME, 'pessoa[cpf_cnpj]').click()
     pyautogui.hotkey('ctrl', 'v')
-    sleep(3)
+    navegador.implicitly_wait(10)
     print('### CPF inserido: ', CPFcopiado)
 
     nome_element = navegador.find_element(By.NAME, 'pessoa[data_nascimento_fundacao]')
@@ -492,14 +492,14 @@ def cadastrar_pessoa():
     print('### Passei data de nascimento.')
 
     navegador.find_element(By.NAME, 'pessoa[identidade]')
-    sleep(2)
+    navegador.implicitly_wait(10)
     elemento = navegador.find_element(By.XPATH, '//*[@id="identidade"]')
-    sleep(3)
+    navegador.implicitly_wait(10)
     elemento.click()
-    sleep(2)
+    navegador.implicitly_wait(10)
 
     navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/form/div[17]/ul/li[2]/a').click()
-    sleep(2)
+    navegador.implicitly_wait(10)
     navegador.find_element(By.XPATH, '//*[@id="tipo_endereco_id_0"]').click()
     nome_element = navegador.find_element(By.XPATH, '//*[@id="tipo_endereco_id_0"]')
     nome_element.send_keys('R')
@@ -508,7 +508,7 @@ def cadastrar_pessoa():
     nome_element = navegador.find_element(By.ID, 'autocompletar_cep_id_0')
     nome_element.send_keys('89805-545')
     print('### Passei CEP.')
-    sleep(2)
+    navegador.implicitly_wait(10)
     pyautogui.hotkey('down')
     pyautogui.hotkey('tab')
     pyautogui.hotkey('tab')
@@ -526,7 +526,7 @@ def cadastrar_pessoa():
     hora_fim = datetime.datetime.now()
     print('Fim de execução: ', hora_fim)
     tempo_total = (hora_fim - hora_inicio)
-    sleep(2)
+    navegador.implicitly_wait(10)
 
     print('###### Pessoa física cadastrada com sucesso\n##### CPF cadastrado: ', CPFcopiado, 'Tempo de execução: ', tempo_total)
     print('Encerrado função cadastro_pessoa')
@@ -545,47 +545,47 @@ def cadastrar_venda(numero_cliente, numero_produto):
         nome_element = navegador.find_element(By.ID, 'autocompletar_pessoa_cliente_fornecedor_id')
         nome_element.send_keys(numero_cliente)
         print('### Passei Cliente', numero_cliente)
-        sleep(2)
+        navegador.implicitly_wait(10)
         pyautogui.hotkey('down')
         pyautogui.hotkey('tab')
 
         # Preencher o campo "Produto"
         nome_element = navegador.find_element(By.ID, 'coluna_descricao_produto')
-        sleep(2)
+        navegador.implicitly_wait(10)
         nome_element.send_keys(numero_produto)
         print('### Passei produto.')
-        sleep(2)
+        navegador.implicitly_wait(10)
         pyautogui.hotkey('down')
         pyautogui.hotkey('tab')
         pyautogui.hotkey('ENTER')
 
         # Preencher o campo "Quantidade"
-        sleep(3)
+        navegador.implicitly_wait(10)
         nome_element = navegador.find_element(By.ID, 'quantidade_local_estocagem_por_filial')
-        sleep(2)
+        navegador.implicitly_wait(10)
         nome_element.send_keys('1')
         print('### Passei quantidade.')
         pyautogui.hotkey('ENTER')
-        sleep(3)
+        navegador.implicitly_wait(10)
 
         # Preencher o campo "Forma de Pagamento"
         nome_element = navegador.find_element(By.ID, 'forma_pagamento_id_0')
         nome_element.send_keys('V')
-        sleep(3)
+        navegador.implicitly_wait(10)
         pyautogui.hotkey('ENTER')
         print('### Passei forma de pagamento carnê')
 
         # Preencher o campo "Quantidade de Parcelas"
-        sleep(2)
+        navegador.implicitly_wait(10)
         nome_element = navegador.find_element(By.XPATH, '//*[@id="parcela_0"]')
-        sleep(2)
+        navegador.implicitly_wait(10)
         nome_element.send_keys('0')
-        sleep(2)
+        navegador.implicitly_wait(10)
         print('### Passei quantidade de parcelas.')
 
         # Clicar no botão "Salvar"
         navegador.find_element(By.XPATH, '//*[@id="botao_salvar"]').click()
-        sleep(10)
+        navegador.implicitly_wait(10)
 
     #    Preencher campos de liberação
         navegador.find_element(By.ID, 'login_liberacao_venda').click()
@@ -600,20 +600,20 @@ def cadastrar_venda(numero_cliente, numero_produto):
         pyautogui.hotkey('tab')
         print('### Passei senha de liberação')
         pyautogui.hotkey('ENTER')
-        sleep(2)
+        navegador.implicitly_wait(10)
 
         # Clicar no botão "Salvar" novamente
         navegador.find_element(By.XPATH, '/html/body/div[9]/div/div/div[2]/button').click()
-        sleep(2)
+        navegador.implicitly_wait(10)
         navegador.find_element(By.XPATH, '//*[@id="botao_salvar"]').click()
-        sleep(12)
+        navegador.implicitly_wait(10)
 
         # Obter número do lançamento
         b_element = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[1]/div/b')
         b_text = b_element.text
         nr_lcto = b_text[14:19]
         print('#### Número do lançamento: ', nr_lcto)
-        sleep(2)
+        navegador.implicitly_wait(10)
 
     except Exception as e:
         print(f"Ocorreu um erro: {str(e)}")
@@ -632,16 +632,16 @@ def faturamento_de_venda():
       navegador.get("https://felipe.testes.smart.sgisistemas.com.br/recebimentos")
       print("Localizar campo Nº Lançamento")
       nome_element = navegador.find_element(By.XPATH,'//*[@id="numeros_lancamentos"]')
-      sleep(2)
+      navegador.implicitly_wait(10)
       nome_element.send_keys(nr_lcto)
       pyautogui.hotkey('tab')
-      navegador.implicitly_wait(10)
-      #sleep(5)
+      navegador.implicitly_wait(15)
+      #navegador.implicitly_wait(10)
       nome_element = navegador.find_element(By.XPATH, '/html/body/div[4]/div/div[2]/div[2]/form/div[3]/div/div/div[2]/div/div[4]/div/div/table/tbody/tr/td[1]/label').click()
-      sleep(3)
+      navegador.implicitly_wait(10)
       nome_element = navegador.find_element(By.XPATH, '/html/body/div[4]/div/div[2]/div[2]/form/button').click()
       print('Finalizado Lançamento')
-      sleep(8)
+      navegador.implicitly_wait(10)
 #all_handles = navegador.window_handles
 #      aba_para_fechar = all_handles[1]
 #      navegador.switch_to.window(aba_para_fechar)
@@ -664,27 +664,27 @@ def gestao_entrega():
     print('Passei número do lançamento: ', nr_lcto)
     print('Filtrar...')
     navegador.find_element(By.XPATH, '//*[@id="pesquisar-reservas"]').click()
-    sleep(3)
+    navegador.implicitly_wait(10)
     print('Marcar lançamento...')
     navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/div[1]/div/form/div[1]/div[3]/table/tbody/tr/td[1]/label').click()
-    sleep(2)
+    navegador.implicitly_wait(10)
     print('Gerar romaneio...')
     navegador.find_element(By.XPATH, '//*[@id="btn_gerar_romaneio"]').click()
-    sleep(2)
+    navegador.implicitly_wait(10)
     print('Confirmando geração... ')
     navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/div[2]/div/div/div[3]/button[2]').click()
-    sleep(3)
+    navegador.implicitly_wait(10)
     print('Alterar situação...')
-    sleep(3)
+    navegador.implicitly_wait(10)
     navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/form/div[2]/div[2]/div[1]/button').click()
-    sleep(2)
+    navegador.implicitly_wait(10)
     print('Finalizar... ')
     navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/form/div[2]/div[2]/div[1]/ul/li[1]/a').click()
     navegador.find_element(By.XPATH, '/html/body/div[8]/div/div/div[2]/button[2]').click()
-    sleep(10)
+    navegador.implicitly_wait(10)
     campo_nr_romaneio = navegador.find_element(By.XPATH, '//*[@id="id"]')
     nro_romaneio = campo_nr_romaneio.get_attribute("value")
-    sleep(2)
+    navegador.implicitly_wait(10)
     print("Nº Romaneio: ", nro_romaneio)
 
   finally:
@@ -702,23 +702,23 @@ def gera_titulo():
 
     #print("Buscar tipos de título")
     #navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/form/div[1]/div[2]/div/div/div/div/span[2]/span').click()
-    sleep(2)
+    navegador.implicitly_wait(10)
 
     tp_titulo = navegador.find_element(By.XPATH,'//*[@id="autocompletar_tipo_titulo_id"]')
-    sleep(3)
+    navegador.implicitly_wait(10)
     tp_titulo.send_keys('Receber')
     #pyautogui.hotkey('R','e','c','e','b','e','r')
-    sleep(3)
+    navegador.implicitly_wait(10)
     pyautogui.hotkey('down')
     pyautogui.hotkey('tab')
     pyautogui.hotkey('tab')
     print("Selecionar título à receber")
-    sleep(2)
+    navegador.implicitly_wait(10)
 
     print("Preencher cliente")
     cod_cliente_fornecedor = navegador.find_element(By.XPATH, '//*[@id="autocompletar_pessoa_cliente_fornecedor_id"]')
     cod_cliente_fornecedor.send_keys('12547')
-    sleep(3)
+    navegador.implicitly_wait(10)
     pyautogui.hotkey('down')
     pyautogui.hotkey('tab')
     print("Passei cliente 12547")
@@ -726,10 +726,10 @@ def gera_titulo():
     #gerador aleatorio para numero de titulos
     global numero_titulo_gerado
     numero_titulo_gerado = random.randint(1,5000000)
-    sleep(2)
+    navegador.implicitly_wait(10)
 
     numero_titulo = navegador.find_element(By.XPATH, '//*[@id="numero_titulo"]')
-    sleep(2)
+    navegador.implicitly_wait(10)
     numero_titulo.send_keys(str(numero_titulo_gerado))
     print("Numero do título: ", numero_titulo_gerado)
 
@@ -741,29 +741,29 @@ def gera_titulo():
     print("Informar forma de pagamento")
     frm_pgto = navegador.find_element(By.XPATH, '//*[@id="autocompletar_forma_pagamento_id"]')
     frm_pgto.send_keys('Vazio - Carnê Loja TIR')
-    sleep(2)
+    navegador.implicitly_wait(10)
     pyautogui.hotkey('down')
     pyautogui.hotkey('tab')
     print("Passei forma de pagamento Vazio - Carnê Loja TIR")
-    sleep(2)
+    navegador.implicitly_wait(10)
 
     print("Informar Portador")
     portador = navegador.find_element(By.XPATH, '//*[@id="autocompletar_portador_titulo_id"]')
     portador.send_keys('Carteira')
-    sleep(2)
+    navegador.implicitly_wait(10)
     pyautogui.hotkey('down')
     pyautogui.hotkey('tab')
     print("Passei portardor Carteira")
-    sleep(2)
+    navegador.implicitly_wait(10)
 
     print("Informar Histórico de Receita e Despesa")
     historico_rec_desp = navegador.find_element(By.XPATH, '//*[@id="autocompletar_historico_receita_despesa_id"]')
     historico_rec_desp.send_keys('Venda Financiada')
-    sleep(2)
+    navegador.implicitly_wait(10)
     pyautogui.hotkey('down')
     pyautogui.hotkey('tab')
     print("Passei Histório de Receita/Despesa Venda Financiada")
-    sleep(2)
+    navegador.implicitly_wait(10)
 
     print("Informar valor de parcelas")
     vlr_parcela = navegador.find_element(By.XPATH, '//*[@id="valor_cada_titulo"]')
@@ -803,20 +803,20 @@ def funcao_gera_sped_fiscal():
     nome_element.clear()
     nome_element.send_keys('01102023')
     print("Passei data inicial")
-    sleep(2)
+    navegador.implicitly_wait(10)
     nome_element = navegador.find_element(By.ID, 'data_final')
     nome_element.clear()
     nome_element.send_keys('31102023')
     print("Passei data final")
-    sleep(2)
+    navegador.implicitly_wait(10)
     nome_element = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/form/div/div[5]/span/div/div[1]/table/tbody/tr[1]/td[2]')
     actions = ActionChains(navegador)
     actions.double_click(nome_element).perform()
     print("Passei filial 1")
-    sleep(2)
+    navegador.implicitly_wait(10)
     nome_element = navegador.find_element(By.XPATH, '//*[@id="btn-gerar-sped"]').click()
   finally:
-    sleep(20)
+    navegador.implicitly_wait(10)
     print("Encerrando funcao_gera_sped_fiscal")
 
 def funcao_gera_sped_contribuicao():
@@ -830,20 +830,20 @@ def funcao_gera_sped_contribuicao():
     nome_element.clear()
     nome_element.send_keys('01102023')
     print("Passei data inicial")
-    sleep(2)
+    navegador.implicitly_wait(10)
     nome_element = navegador.find_element(By.ID, 'data_final')
     nome_element.clear()
     nome_element.send_keys('31102023')
     print("Passei data final")
-    sleep(2)
+    navegador.implicitly_wait(10)
     nome_element = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/form/div[3]/div/div[2]/div[1]/table/tbody/tr[1]/td[2]')
     actions = ActionChains(navegador)
     actions.double_click(nome_element).perform()
     print("Passei filial 1")
-    sleep(2)
+    navegador.implicitly_wait(10)
     nome_element = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/form/div[3]/div/input[2]').click()
   finally:
-    sleep(20)
+    navegador.implicitly_wait(10)
     print("Encerrando funcao_gera_sped_contribuicao")
 
 
@@ -853,31 +853,31 @@ def funcao_gera_cobranca():
     try:
         navegador.get("https://felipe.testes.smart.sgisistemas.com.br/cobrancas")
         navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/div/div[1]/a[1]').click()
-        sleep(2)
+        navegador.implicitly_wait(10)
         nome_element = navegador.find_element(By.XPATH, '//*[@id="data_vencimento_inicial"]')
         nome_element.clear()
         nome_element.send_keys('01092022')
         print("Passei data inicial")
-        sleep(2)
+        navegador.implicitly_wait(10)
         nome_element = navegador.find_element(By.XPATH, '//*[@id="data_vencimento_final"]')
         nome_element.clear()
         nome_element.send_keys('31122500')
         print("Passei data final")
-        sleep(2)
+        navegador.implicitly_wait(10)
         print("Pesquisar titulos")
         nome_element = navegador.find_element(By.XPATH, '//*[@id="numero_titulo"]')
         nome_element.send_keys(numero_titulo_gerado)
         navegador.find_element(By.XPATH, '//*[@id="pesquisa_titulos_cobrancas"]').click()
-        sleep(3)
+        navegador.implicitly_wait(10)
         print("Marcando títulos para cobrança")
         navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/form/div[1]/div[4]/div[2]/div[2]/table/thead/tr/th[1]/label').click()
-        sleep(2)
+        navegador.implicitly_wait(10)
         print("Gerar cobrança")
         navegador.find_element(By.XPATH, '//*[@id="gerar_cobrancas"]').click()
-        sleep(3)
+        navegador.implicitly_wait(10)
         print("Confirmando modal responsáveis cobrança")
         navegador.find_element(By.XPATH, '//*[@id="botao_gerar_modal"]').click()
-        sleep(2)
+        navegador.implicitly_wait(10)
 
     finally:
       print("Encerrando funcao_gera_cobranca")
@@ -895,7 +895,7 @@ erro = 0
 print('#######################################################################')
 print('#                NÃO UTILIZE MOUSE E TECLADO                          #')
 print('#######################################################################')
-sleep(3)
+navegador.implicitly_wait(10)
 print('### Navegador aberto.')
 
 usuario_element = WebDriverWait(navegador, 10).until(EC.presence_of_element_located((By.NAME, 'usuario')))
@@ -909,7 +909,7 @@ print('### Passei senha.')
 
 pyautogui.hotkey('ENTER')
 print('### Botão prosseguir Ok.')
-sleep(2)
+navegador.implicitly_wait(10)
 
 
 
@@ -934,7 +934,7 @@ funcao_gera_cobranca()
 print('#######################################################################')
 print('#                LIBERADO USO MOUSE E TECLADO                         #')
 print('#######################################################################')
-sleep(3)
+navegador.implicitly_wait(10)
 
 #"""
 navegador.get("https://felipe.testes.smart.sgisistemas.com.br/pessoas")
@@ -948,7 +948,7 @@ else:
     result_teste = ">>>>>>>>>>>>>>>>>>>>>>>>>  A PÁGINA CONTÉM ERRO"
 cont = cont +1
 
-#sleep(2)
+#navegador.implicitly_wait(10)
 navegador.get("https://felipe.testes.smart.sgisistemas.com.br/produtos")
 print('########## TELA PRODUTOS ##########')
 error_message = navegador.find_elements(By.NAME,"filtros[descricao_ilike]")
@@ -961,7 +961,7 @@ else:
 cont = cont +1
 
 
-sleep(2)
+navegador.implicitly_wait(10)
 navegador.get("https://felipe.testes.smart.sgisistemas.com.br/empresas/1/edit")
 print('########## TELA CONFIGURAÇÃO DA EMRPESA ##########')
 
@@ -972,10 +972,10 @@ if error_message:
 else:
     erro = erro+1
     print(" >>>>>>>>>>>>>>>>>>>>>>>>>  A PÁGINA CONTÉM ERRO")
-sleep(3)
+navegador.implicitly_wait(10)
 cont = cont +1
 
-sleep(2)
+navegador.implicitly_wait(10)
 navegador.get("https://felipe.testes.smart.sgisistemas.com.br/relatorio_inventarios")
 print('### Acessei Relatório de Inventário')
 
@@ -1463,7 +1463,7 @@ else:
     print(" >>>>>>>>>>>>>>>>>>>>>>>>>  A PÁGINA CONTÉM ERRO")
 cont = cont +1
 
-sleep(2)
+navegador.implicitly_wait(10)
 navegador.get("https://felipe.testes.smart.sgisistemas.com.br/importacoes_xml_nfe")
 print('### Acessei Importação do XML da NF-e')
 

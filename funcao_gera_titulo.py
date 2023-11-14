@@ -48,6 +48,7 @@ def gera_titulo():
     print("Passei cliente 12547")
 
     #gerador aleatorio para numero de titulos
+    global numero_titulo_gerado
     numero_titulo_gerado = random.randint(1,5000000)
     sleep(2)
 
@@ -115,41 +116,6 @@ def gera_titulo():
 
   finally:
     print("Encerrando função gera_titulo.")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
