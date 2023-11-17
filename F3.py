@@ -22,45 +22,45 @@ nr_lcto = 0
 
 
 def cadastro_e_alteracao_de_escolaridade():
-
     try:
         print("######### TELA ESCOLARIDADE ##########")
         print("Cadastro e alteração de escolaridade")
-        sleep(3)  # Espera até 3 segundos por elementos
 
+        # Navegar até a página de escolaridades
         navegador.get("https://felipe.testes.smart.sgisistemas.com.br/escolaridades")
         print('### Abrindo cadastro de escolaridade')
 
-        # Clique no botão para abrir o formulário de cadastro
-        navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/div/div[1]/a').click()
+        # Aguardar até que o botão para abrir o formulário de cadastro seja clicável
+        wait = WebDriverWait(navegador, 10)
+        abrir_formulario_button = wait.until(EC.element_to_be_clickable((By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/div/div[1]/a')))
+        abrir_formulario_button.click()
 
-        # Preenche o campo "descricao" com o valor "Escolaridade Automática"
-        nome_element = navegador.find_element(By.XPATH, '//*[@id="descricao"]')
+        # Preencher o campo "descricao" com o valor "Escolaridade Automática"
+        nome_element = wait.until(EC.visibility_of_element_located((By.XPATH, '//*[@id="descricao"]')))
         nome_element.send_keys('Escolaridade Automática')
         print('### Preenchido campo "descricao" com "Escolaridade Automática"')
 
-        # Clique no botão "Salvar"
-        navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/form/div[3]/div/input[2]').click()
-        sleep(3)
+        # Clicar no botão "Salvar"
+        salvar_button = wait.until(EC.element_to_be_clickable((By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/form/div[3]/div/input[2]')))
+        salvar_button.click()
 
-        # Preenche o campo "descricao" com o valor "Escolaridade Automática Alterada"
-        nome_element = navegador.find_element(By.XPATH, '//*[@id="descricao"]')
+        # Preencher o campo "descricao" com o valor "Escolaridade Automática Alterada"
+        nome_element.clear()  # Limpar o campo antes de inserir um novo valor
         nome_element.send_keys('Escolaridade Automática Alterada')
-        print('### Preenchido campo "descricao" com "Escolaridade Automática Alterada')
-        sleep(3)
+        print('### Preenchido campo "descricao" com "Escolaridade Automática Alterada"')
 
-        # Clique no botão "Salvar" novamente
-        navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/form/div[3]/div/input[1]').click()
-        sleep(5)
+        # Clicar no botão "Salvar" novamente
+        salvar_button = wait.until(EC.element_to_be_clickable((By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/form/div[3]/div/input[1]')))
+        salvar_button.click()
 
-        # Obtenha o código da escolaridade
-        codigo_escolaridade = navegador.find_element(By.CLASS_NAME, "campo_id")
+        # Aguardar até que o código da escolaridade seja visível
+        codigo_escolaridade = wait.until(EC.visibility_of_element_located((By.CLASS_NAME, "campo_id")))
         print('### Código da escolaridade:', codigo_escolaridade.text)
 
     finally:
         print('>> Encerrando função cadastro_e_alteracao_de_escolaridade.')
-        # Feche o navegador
-        #navegador.quit()
+        # Fechar o navegador
+        # navegador.quit()
 
 def cadastro_e_alteracao_de_tipo_dependente():
 
