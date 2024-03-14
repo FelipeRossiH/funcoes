@@ -32,30 +32,30 @@ def abrir_pagina_e_verificar(url, nome_elemento):
         erro = erro + 1
         print(" >>>>>>>>>>>>>>>>>>>>>>>>>  A PÁGINA CONTÉM ERRO")
         result_teste = ">>>>>>>>>>>>>>>>>>>>>>>>>  A PÁGINA CONTÉM ERRO"
+with open('teste01.txt', 'w') as arquivo_saida:
+ smart = 'https://felipe.testes.smart.sgisistemas.com.br/'
+ navegador = Firefox()
+ navegador.maximize_window()
+ navegador.get(smart)
+ #hora_inicio = datetime.datetime.now()
+ print('#######################################################################')
+ print('#                NÃO UTILIZE MOUSE E TECLADO                          #')
+ print('#######################################################################')
+ sleep(3)
+ print('### Navegador aberto.')
 
-smart = 'https://felipe.testes.smart.sgisistemas.com.br/'
-navegador = Firefox()
-navegador.maximize_window()
-navegador.get(smart)
-#hora_inicio = datetime.datetime.now()
-print('#######################################################################')
-print('#                NÃO UTILIZE MOUSE E TECLADO                          #')
-print('#######################################################################')
-sleep(3)
-print('### Navegador aberto.')
+ usuario_element = navegador.find_element(By.NAME, 'usuario')
+ usuario_element.send_keys('robo.casa')
+ print('### Passei usuário.')
 
-usuario_element = navegador.find_element(By.NAME, 'usuario')
-usuario_element.send_keys('robo.casa')
-print('### Passei usuário.')
+ senha_element = navegador.find_element(By.NAME, 'senha').send_keys("Robo123" + Keys.ENTER)
+ print('### Passei senha.')
 
-senha_element = navegador.find_element(By.NAME, 'senha').send_keys("Robo123" + Keys.ENTER)
-print('### Passei senha.')
+ sleep(3)
 
-sleep(3)
-
-pyautogui.hotkey('ENTER')
-print('### Botão prosseguir Ok.')
-sleep(3)
+ pyautogui.hotkey('ENTER')
+ print('### Botão prosseguir Ok.')
+ sleep(3)
 
 # Exemplo de uso da função
 #navegador = webdriver.Firefox()  # Inicialize o navegador (Lembre-se de instalar o Selenium e o ChromeDriver)

@@ -16,12 +16,19 @@ import random
 
 
 
-
 print("Gerar 6 números aleatórios")
 
+# Probabilidades dos números (você pode ajustar conforme necessário)
+probabilidades = [1] * 25
+
 cont = 0
-while cont < 6:
-    # Considere as probabilidades da Mega-Sena
-    numero_titulo_gerado = random.choices(range(1, 61), k=1, weights=[1]*60)[0]
-    print("Número:", numero_titulo_gerado)
-    cont += 1
+numeros_gerados = []
+
+while cont < 15:
+    numero_gerado = random.choices(range(1, 26), k=1, weights=probabilidades)[0]
+
+    # Garante que o número não foi escolhido anteriormente
+    if numero_gerado not in numeros_gerados:
+        numeros_gerados.append(numero_gerado)
+        print("Número:", numero_gerado)
+        cont += 1
