@@ -1,4 +1,5 @@
-import pyautogui, sys
+import pyautogui
+import sys
 import pyperclip
 from selenium import webdriver
 from selenium.webdriver import ActionChains
@@ -14,12 +15,14 @@ import clipboard
 import datetime
 import random
 
+
 smart = 'https://felipe.testes.smart.sgisistemas.com.br/'
 #smart_home = 'https://felipe.testes.smart.sgisistemas.com.br/'
 cont = 0
 erro = 0
 nr_lcto = 0
 tela = 0
+
 
 
 def cadastro_e_alteracao_de_escolaridade():
@@ -547,7 +550,7 @@ def cadastrar_venda(numero_cliente, numero_produto):
         nome_element = navegador.find_element(By.ID, 'autocompletar_pessoa_cliente_fornecedor_id')
         nome_element.send_keys(numero_cliente)
         print('### Passei Cliente', numero_cliente)
-        sleep(2)
+        sleep(5)
         pyautogui.hotkey('down')
         pyautogui.hotkey('tab')
 
@@ -588,8 +591,8 @@ def cadastrar_venda(numero_cliente, numero_produto):
         # Clicar no botão "Salvar"
         navegador.find_element(By.XPATH, '//*[@id="botao_salvar"]').click()
         #sleep(10)
-        print("Aguarda 20 segundos para liberação")
-        for segundo_atual in range(30, 0, -1):
+        print("Aguarda 15 segundos para liberação")
+        for segundo_atual in range(15, 0, -1):
             print(f"Tempo restante: {segundo_atual} segundos")
             sleep(1)
 
@@ -597,7 +600,7 @@ def cadastrar_venda(numero_cliente, numero_produto):
     #    Preencher campos de liberação
         navegador.find_element(By.ID, 'login_liberacao_venda').click()
         nome_element = navegador.find_element(By.ID, 'login_liberacao_venda')
-        nome_element.send_keys('projeto.casa')
+        nome_element.send_keys('projeto.robo')
         pyautogui.hotkey('tab')
         print('### Passei usuário de liberação')
 
@@ -607,20 +610,20 @@ def cadastrar_venda(numero_cliente, numero_produto):
         pyautogui.hotkey('tab')
         print('### Passei senha de liberação')
         pyautogui.hotkey('ENTER')
-        sleep(2)
+        sleep(5)
 
         # Clicar no botão "Salvar" novamente
         navegador.find_element(By.XPATH, '/html/body/div[9]/div/div/div[2]/button').click()
-        sleep(2)
+        sleep(8)
         navegador.find_element(By.XPATH, '//*[@id="botao_salvar"]').click()
-        sleep(12)
+        sleep(8)
 
         # Obter número do lançamento
         b_element = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[1]/div/b')
         b_text = b_element.text
         nr_lcto = b_text[14:19]
         print('#### Número do lançamento: ', nr_lcto)
-        sleep(2)
+        sleep(8)
 
     except Exception as e:
         print(f"Ocorreu um erro: {str(e)}")
@@ -644,6 +647,10 @@ def faturamento_de_venda():
       sleep(3)
       nome_element = navegador.find_element(By.XPATH, '/html/body/div[4]/div/div[2]/div[2]/form/div[3]/div/div/div[2]/div/div[4]/div/div/table/tbody/tr/td[1]/label').click()
       sleep(3)
+      scroll_to_bottom_script = "window.scrollTo(0, document.body.scrollHeight);"
+      # Executa o script para rolar a página
+      navegador.execute_script(scroll_to_bottom_script)
+      sleep(2)
       nome_element = navegador.find_element(By.XPATH, '/html/body/div[4]/div/div[2]/div[2]/form/button').click()
       print('Finalizado Lançamento')
       sleep(20)
@@ -926,7 +933,7 @@ def analise_credito():
     navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/form/div[1]/div/div[5]/div[2]/div[1]/div[1]/div/div/div[2]/div/ul/li[2]/a/strong').click()
     sleep(3)
     print("Aba Vendas")
-    navegador.find_element(By.ID, 'cabecalho_aba_container_financeiro').click()
+    navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/form/div[1]/div/div[5]/div[2]/div[1]/div[1]/div/div/div[2]/div/ul/li[3]/a/strong').click()
     sleep(3)
     print("Aba Solicitações")
     navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/form/div[1]/div/div[5]/div[2]/div[1]/div[1]/div/div/div[2]/div/ul/li[4]/a/strong').click()
@@ -944,7 +951,7 @@ def analise_credito():
     navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/form/div[1]/div/div[5]/div[2]/div[1]/div[1]/div/div/div[2]/div/ul/li[7]/a/strong').click()
     sleep(2)
     print("Aba Histórico SPC")
-    navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/form/div[1]/div/div[5]/div[2]/div[1]/div[1]/div/div/div[2]/div/ul/li[8]/a').click()
+    navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/form/div[1]/div/div[5]/div[2]/div[1]/div[1]/div/div/div[2]/div/ul/li[8]/a/strong').click()
     sleep(2)
     print("Aba Avalista")
     navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/form/div[1]/div/div[5]/div[2]/div[1]/div[1]/div/div/div[2]/div/ul/li[9]/a/strong').click()
@@ -978,8 +985,6 @@ def devolucao_venda():
         sleep(3)
         navegador.find_element(By.ID, 'operacao_documento_id').click()
         sleep(2)
-        pyautogui.hotkey('down')
-        pyautogui.hotkey('down')
         pyautogui.hotkey('down')
         pyautogui.hotkey('down')
         pyautogui.hotkey('down')
@@ -1018,6 +1023,153 @@ def devolucao_venda():
 
 
 
+def lancamento_entrada():
+    navegador.get("https://felipe.testes.smart.sgisistemas.com.br/entrada")
+    print("Acessei tela Entrada")
+
+    global numero_lancamento_entrada
+    numero_lancamento_entrada = random.randint(1,5000000)
+    sleep(2)
+
+    numero_lancamento = navegador.find_element(By.XPATH, '//*[@id="numero_documento"]')
+    sleep(2)
+    numero_lancamento.send_keys(str(numero_lancamento_entrada))
+    print("Numero do Documento: ", numero_lancamento_entrada)
+
+    serie = navegador.find_element(By.XPATH, '//*[@id="serie_documento"]')
+    serie.send_keys('1')
+    print("Serie 1")
+
+    fornecedor = navegador.find_element(By.XPATH, '//*[@id="autocompletar_pessoa_cliente_fornecedor_id"]')
+    fornecedor.send_keys('FORNECEDOR DE TESTE')
+    sleep(3)
+    pyautogui.hotkey('down')
+    pyautogui.hotkey('tab')
+    sleep(3)
+    print("Informei Fornecedor de Teste(12551)")
+    sleep(2)
+
+    navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/div[1]/div[2]/form/div[18]/div/div[1]/h4').click
+    sleep(2)
+    navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/div[1]/div[2]/form/div[18]/div/div[1]/h4').click
+    #print("Abri/Fecha")
+
+    nome_element = navegador.find_element(By.XPATH, '//*[@id="coluna_descricao_produto"]')
+    nome_element.click()
+    #print("fiz o click")
+    nome_element = navegador.find_element(By.XPATH, '//*[@id="autocompletar_produto_id_0"]')
+    sleep(2)    
+    nome_element.send_keys('7410')
+    sleep(3)
+    pyautogui.hotkey('down')
+    pyautogui.hotkey('tab')
+    sleep(3)
+    print("Passei Produto de Teste(7410)")
+    
+    qtde_nota = navegador.find_element(By.XPATH, '//*[@id="coluna_quantidade_nota"]')
+    qtde_nota.send_keys('10')
+    print("Informei 10 unidades do item.")
+    sleep(2)
+    pyautogui.hotkey('tab')
+    sleep(2)
+    pyautogui.hotkey('tab')
+    pyautogui.hotkey('tab')
+    pyautogui.hotkey('tab')
+    
+    sleep(2)
+    pyautogui.write('10')
+    pyautogui.hotkey('tab')
+    print("Informei 10 unidades de lançamento.")
+    
+    navegador.find_element(By.XPATH, '//*[@id="concluir_quantidade_por_local"]').click()
+    sleep(3)
+    cst_icms = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/div[1]/div[2]/form/div[18]/div/div[2]/div/div[2]/table/tbody/tr/td[11]')
+    sleep(2)
+    cst_icms.click()
+    sleep(2)
+    inf_cst = navegador.find_element(By.XPATH, '//*[@id="autocompletar_cst_icms_id_0"]')
+    sleep(0.5)
+    inf_cst.send_keys('41')
+    print("Cliquei na coluna CST ICMS")
+    sleep(3)
+    pyautogui.hotkey('down')
+    pyautogui.hotkey('tab')
+    pyautogui.hotkey('tab')
+    print("Informei CST 41.")
+
+    sleep(1)
+
+    vlr_unit = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/div[1]/div[2]/form/div[18]/div/div[2]/div/div[2]/table/tbody/tr/td[8]/div[1]')
+    sleep(0.5)
+    vlr_unit.click()
+    sleep(0.5)
+    pyautogui.hotkey('backspace')
+    print("Apaguei valor unitário.")
+    sleep(1)
+    pyautogui.write('15000000')
+    #vlr_unit.send_keys('15000000')
+    sleep(1)
+    pyautogui.hotkey('tab')
+    sleep(3)
+    print("Informei novo valor unitário.")
+    sleep(1)
+
+    forma_pgto = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/div[1]/div[2]/form/div[22]/div/div[2]/div/div[1]/div/div[1]/div/div/div/button/span[1]')
+    forma_pgto.click()
+    sleep(0.5)
+    busca_forma_pgto = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/div[1]/div[2]/form/div[22]/div/div[2]/div/div[1]/div/div[1]/div/div/div/div/div/input')
+    sleep(0.5)
+    busca_forma_pgto.send_keys('BOLETO')
+    sleep(0.5)
+    pyautogui.hotkey('Enter')
+    sleep(3)
+    print("Informei forma de pagamento BOLETO")
+
+    qtde_parcelas = navegador.find_element(By.XPATH, '//*[@id="parcela_0"]')
+    sleep(0.5)
+    qtde_parcelas.click()
+    sleep(0.5)
+    pyautogui.hotkey('backspace')
+    sleep(0.5)
+    qtde_parcelas.send_keys('3')
+    print("Informei 3 parcelas")
+    sleep(1)
+
+    navegador.find_element(By.XPATH, '//*[@id="emitir_documento"]').click()
+    sleep(0.5)
+    navegador.find_element(By.XPATH, '/html/body/div[9]/div/div/div[2]/button[2]').click()
+    print("Finalizado lançamento.")
+    sleep(8)
+
+    abas = navegador.window_handles
+
+    for indice, aba in enumerate(abas):
+        navegador.switch_to.window(aba)
+        print(f"Índice da janela: {indice}")
+        if indice > 0:
+            navegador.close()
+    sleep(2)
+    abas = navegador.window_handles
+    if len(abas) > 0:
+        navegador.switch_to.window(abas[0])
+    #    navegador.get("https://felipe.testes.smart.sgisistemas.com.br/home")
+
+    sleep(0.5)
+    navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/div[1]/div/div/div[1]/div[2]/form/div/div[2]/div[2]/table/tbody/tr/td[1]/label').click()
+    sleep(0.5)
+    navegador.find_element(By.XPATH, '//*[@id="tipo_custo"]').click()
+    sleep(1)
+    pyautogui.hotkey('up')
+    pyautogui.hotkey('up')
+    pyautogui.hotkey('up')
+    pyautogui.hotkey('tab')
+    sleep(1)
+    navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/div[1]/div/div/div[1]/div[2]/form/div/div[3]/button').click()
+    sleep(3)
+    navegador.get("https://felipe.testes.smart.sgisistemas.com.br/home")
+
+
+
 navegador = Firefox()
 navegador.maximize_window()
 navegador.get(smart)
@@ -1031,7 +1183,7 @@ sleep(3)
 print('### Navegador aberto.')
 
 usuario_element = WebDriverWait(navegador, 10).until(EC.presence_of_element_located((By.NAME, 'usuario')))
-usuario_element.send_keys('robo.casa')
+usuario_element.send_keys('robo.robo')
 print('### Passei usuário.')
 
 
@@ -1043,11 +1195,27 @@ pyautogui.hotkey('ENTER')
 print('### Botão prosseguir Ok.')
 sleep(2)
 
-
+sleep(2)
+navegador.get("https://felipe.testes.smart.sgisistemas.com.br/empresas/1/edit")
+print('########## TELA CONFIGURAÇÃO DA EMRPESA ##########')
+tela = tela + 1
+print('Tela: ', tela)
+error_message = navegador.find_elements(By.NAME,"Salvar")
+if error_message:
+    print("A página foi aberta")
+    scroll_to_bottom_script = "window.scrollTo(0, document.body.scrollHeight);"
+    sleep(3)
+    navegador.find_element(By.NAME,'commit').click()
+else:
+    erro = erro+1
+    print(" >>>>>>>>>>>>>>>>>>>>>>>>>  A PÁGINA CONTÉM ERRO")
+sleep(3)
+cont = cont +1
 
 
 
 # Chamada de funções
+lancamento_entrada()
 cadastrar_venda("12546", "7410")
 analise_credito()
 faturamento_de_venda()
@@ -1098,21 +1266,6 @@ else:
     result_teste = ">>>>>>>>>>>>>>>>>>>>>>>>>  A PÁGINA CONTÉM ERRO"
 cont = cont +1
 
-
-sleep(2)
-navegador.get("https://felipe.testes.smart.sgisistemas.com.br/empresas/1/edit")
-print('########## TELA CONFIGURAÇÃO DA EMRPESA ##########')
-tela = tela + 1
-print('Tela: ', tela)
-error_message = navegador.find_elements(By.NAME,"pessoa[nome]")
-if error_message:
-    print("A página foi aberta")
-    navegador.find_element(By.NAME,"commit").click()
-else:
-    erro = erro+1
-    print(" >>>>>>>>>>>>>>>>>>>>>>>>>  A PÁGINA CONTÉM ERRO")
-sleep(3)
-cont = cont +1
 
 sleep(2)
 navegador.get("https://felipe.testes.smart.sgisistemas.com.br/relatorio_inventarios")
@@ -6332,7 +6485,66 @@ else:
     print(" >>>>>>>>>>>>>>>>>>>>>>>>>  A PÁGINA CONTÉM ERRO")
 cont = cont +1
 
+navegador.get("https://felipe.testes.smart.sgisistemas.com.br/configuracoes_whatsapp")
+print('### Acessei Configuração do Whatsapp')
+tela = tela + 1
+print('Tela: ', tela)
+error_message = navegador.find_elements(By.ID,"filiais.descricao_ilike")
+if error_message:
+    print("A página foi aberta")
+else:
+    erro = erro+1
+    print(" >>>>>>>>>>>>>>>>>>>>>>>>>  A PÁGINA CONTÉM ERRO")
+cont = cont +1
 
+navegador.get("https://felipe.testes.smart.sgisistemas.com.br/configuracoes_mensagens_whatsapp")
+print('### Acessei Configuração de mensagem do Whatsapp')
+tela = tela + 1
+print('Tela: ', tela)
+error_message = navegador.find_elements(By.ID,"configuracoes_whatsapp.numero_whatsapp_ilike")
+if error_message:
+    print("A página foi aberta")
+else:
+    erro = erro+1
+    print(" >>>>>>>>>>>>>>>>>>>>>>>>>  A PÁGINA CONTÉM ERRO")
+cont = cont +1
+
+
+navegador.get("https://felipe.testes.smart.sgisistemas.com.br/chats")
+print('### Acessei Instâncias do Whatsapp')
+tela = tela + 1
+print('Tela: ', tela)
+error_message = navegador.find_elements(By.XPATH,"/html/body/div[4]/div[1]/div[2]/div[2]/div/div/div")
+if error_message:
+    print("A página foi aberta")
+else:
+    erro = erro+1
+    print(" >>>>>>>>>>>>>>>>>>>>>>>>>  A PÁGINA CONTÉM ERRO")
+cont = cont +1
+
+navegador.get("https://felipe.testes.smart.sgisistemas.com.br/configuracoes_whatsapp/new")
+print('### Acessei Adicionar configuração do Whatsapp')
+tela = tela + 1
+print('Tela: ', tela)
+error_message = navegador.find_elements(By.ID,"url")
+if error_message:
+    print("A página foi aberta")
+else:
+    erro = erro+1
+    print(" >>>>>>>>>>>>>>>>>>>>>>>>>  A PÁGINA CONTÉM ERRO")
+cont = cont +1
+
+navegador.get("https://felipe.testes.smart.sgisistemas.com.br/logs_chats_whatsapp")
+print('### Acessei Log do Whatsapp')
+tela = tela + 1
+print('Tela: ', tela)
+error_message = navegador.find_elements(By.ID,"telefone_conectado")
+if error_message:
+    print("A página foi aberta")
+else:
+    erro = erro+1
+    print(" >>>>>>>>>>>>>>>>>>>>>>>>>  A PÁGINA CONTÉM ERRO")
+cont = cont +1
 
 
 print("################################################################################")
@@ -6361,5 +6573,5 @@ tempo_total = (hora_fim - hora_inicio)
 print("-------------------------------------")
 print("Robô iniciado em ", hora_inicio,'\n' "Robô finalizado em ", hora_fim, '\n' "Tempo de execução", tempo_total, '\n' "Quantidade de telas verificadas", cont, '\n' "Telas com erro", erro )
 
+input("Pressione Enter para continuar...")
 
-navegador.quit()
