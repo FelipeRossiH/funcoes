@@ -30,7 +30,7 @@ sleep(3)
 print('### Navegador aberto.')
 
 usuario_element = navegador.find_element(By.NAME, 'usuario')
-usuario_element.send_keys('robo.casa')
+usuario_element.send_keys('robo.robo')
 print('### Passei usuário.')
 
 senha_element = navegador.find_element(By.NAME, 'senha').send_keys("Robo123" + Keys.ENTER)
@@ -77,10 +77,32 @@ def cadastro_e_alteracao_de_escolaridade():
         codigo_escolaridade = navegador.find_element(By.CLASS_NAME, "campo_id")
         print('### Código da escolaridade:', codigo_escolaridade.text)
 
+        descricao_escolaridade = navegador.find_element(By.XPATH, '//*[@id="escolaridades.descricao_ilike"]')
+        descricao_escolaridade.send_keys("Escolaridade AutomáticaEscolaridade Automática Alterada")
+        navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/div/form/div/div[2]/div[2]/div/div[4]/div/button[1]').click()
+        sleep(2)
+        navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/div/div[2]/div[2]/table/tbody/tr/td[1]/a').click()
+        sleep(2)
+        navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/form/div[3]/div/a[2]').click()
+        sleep(2)
+        navegador.find_element(By.XPATH, '/html/body/div[8]/div/div/div[2]/button[2]').click()
+        sleep(3)
+        b_element = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[1]/div/b')
+        b_text = b_element.text
+        msg_confirmacao = b_text[0:25]
+        print('#### Mensagem confirmação: ', msg_confirmacao)
+        sleep(8)
+
+        if msg_confirmacao == 'Excluído com Sucesso!':
+          print("### Tela cadastro de escolaridade ok.")
+        else:
+          print(">>>>>>>>>>>>>> Erro na tela! Verificar.")
+
+
     finally:
         print('>> Encerrando função cadastro_e_alteracao_de_escolaridade.')
         # Feche o navegador
         #navegador.quit()
 
 cadastro_e_alteracao_de_escolaridade()
-navegador.quit()
+#navegador.quit()
