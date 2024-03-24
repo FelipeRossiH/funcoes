@@ -42,10 +42,33 @@ def cadastro_e_alteracao_de_tipo_dependente():
         nome_element.send_keys('Tipo dependente alterada')
         print('### Preenchido campo "descricao" com "Tipo dependente alterada"')
         sleep(3)
-
-        # Clique no botão "Salvar" novamente
         navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/form/div[2]/div/input[1]').click()
-        sleep(3)
+        sleep(2)
+        descricao = navegador.find_element(By.XPATH, '//*[@id="tipos_dependentes.descricao_ilike"]')
+        sleep(0.5)
+        descricao.click()
+        descricao.send_keys('Tipo dependente automáticoTipo dependente alterada')
+        sleep(1)
+        navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/div/form/div/div[2]/div[2]/div/div[4]/div/button[1]').click()
+        sleep(1)
+        navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/div/div[2]/div[2]/table/tbody/tr/td[1]/a').click()
+        sleep(1)
+        navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/form/div[2]/div/a[2]').click()
+        sleep(1)
+        navegador.find_element(By.XPATH, '/html/body/div[8]/div/div/div[2]/button[2]').click()
+        sleep(1)
+
+        b_element = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[1]/div/b')
+        b_text = b_element.text
+        msg_confirmacao = b_text[0:25]
+        print('#### Mensagem confirmação: ', msg_confirmacao)
+        sleep(8)
+
+        if msg_confirmacao == 'Excluído com Sucesso!':
+          print("### Tela cadastro de escolaridade ok.")
+        else:
+          print(">>>>>>>>>>>>>> Erro na tela! Verificar.")
+          erro = erro+1
 
     finally:
         print('>> Encerrando função cadastro_e_alteracao_de_tipo_dependente.')
@@ -77,4 +100,4 @@ sleep(3)
 
 
 cadastro_e_alteracao_de_tipo_dependente()
-navegador.quit()
+#navegador.quit()

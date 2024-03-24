@@ -1341,8 +1341,8 @@ def venda_com_encomenda(numero_cliente, numero_produto):
         # Clicar no botão "Salvar"
         navegador.find_element(By.XPATH, '//*[@id="botao_salvar"]').click()
         #sleep(10)
-        print("Aguarda 8 segundos para liberação")
-        for segundo_atual in range(8, 0, -1):
+        print("Aguarda 10 segundos para liberação")
+        for segundo_atual in range(10, 0, -1):
             print(f"Tempo restante: {segundo_atual} segundos")
             sleep(1)
 
@@ -1352,7 +1352,7 @@ def venda_com_encomenda(numero_cliente, numero_produto):
         b_text = b_element.text
         nr_lcto = b_text[14:19]
         print('#### Número do lançamento: ', nr_lcto)
-        sleep(8)
+        sleep(12)
 
 
 
@@ -1361,8 +1361,47 @@ def venda_com_encomenda(numero_cliente, numero_produto):
         print(f"Ocorreu um erro: {str(e)}")
 
     finally:
-        print("Encerrado função venda_com_encomenda")
+        print("Encerrado função funcao_cadastrar_venda")
         #navegador.quit()
+
+
+def encomenda_de_produto():
+    try:
+        print("########## TELA ENCOMENDA DE PRODUTOS ##########")
+        print("Recebido da função venda com encomenda o lançamento: ", nr_lcto)
+        navegador.get("https://felipe.testes.smart.sgisistemas.com.br/encomendas_produtos")
+        sleep(2)
+
+        nr_lancamento = navegador.find_element(By.XPATH, '//*[@id="documentos.numero_lancamento"]')
+        sleep(1)
+        nr_lancamento.send_keys(nr_lcto)
+        pyautogui.hotkey('Enter')
+        sleep(1)
+        checkbox = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/div/div[3]/div[1]/table/tbody/tr/td[1]/div/label')
+        sleep(1)
+        checkbox.click()
+        sleep(1)
+
+        gerar_pedido_compra = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/div/div[4]/button')
+        sleep(1)
+        gerar_pedido_compra.click()
+
+        sleep(5)
+
+        b_element = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[1]/div/b')
+        b_text = b_element.text
+        msg_confirmacao = b_text[0:99]
+        print('#### Mensagem confirmação: ', msg_confirmacao)
+        sleep(1)
+
+        if msg_confirmacao == 'Gerado com sucesso!':
+            print("### Encomenda gravada com sucesso.")
+        else:
+            print(">>>>>>>>>>>>>> Erro na tela! Verificar.")
+            
+    finally:
+       print("Encerrado função venda_com_encomenda")
+       navegador.get("https://felipe.testes.smart.sgisistemas.com.br/home")
 
 
 navegador = Firefox()
@@ -1437,6 +1476,7 @@ pedido_compra()
 lancamento_entrada()
 venda_com_encomenda("12546", "7410")
 faturamento_de_venda()
+encomenda_de_produto()
 
 print('#######################################################################')
 print('#                LIBERADO USO MOUSE E TECLADO                         #')
