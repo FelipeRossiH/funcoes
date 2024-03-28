@@ -1409,6 +1409,52 @@ def encomenda_de_produto():
        print("Encerrado função venda_com_encomenda")
        navegador.get("https://felipe.testes.smart.sgisistemas.com.br/home")
 
+def pdv_oline():
+
+    try:
+        navegador.get("https://felipe.testes.smart.sgisistemas.com.br/pdv_online")
+        print('### Acesso PDV Online')
+
+        navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/form/div[3]/div[1]/div[1]/div[1]/div[1]/div[1]/button/span[3]').click()
+        sleep(0.5)
+        for i in range(10):
+            sleep(0.5)
+            pyautogui.write('7410')
+            pyautogui.hotkey('Enter')
+            print("Incluso ", i, "vezes.")
+        sleep(0.5)
+        
+        navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/form/div[3]/div[1]/div[1]/div[1]/div[4]/button').click()
+        sleep(1)
+        
+        navegador.find_element(By.XPATH, '//*[@id="vendedor_id"]').click()
+
+        pyautogui.hotkey('tab')
+        pyautogui.hotkey('tab')
+        pyautogui.hotkey('tab')
+        pyautogui.hotkey('tab')
+        pyautogui.hotkey('tab')
+        pyautogui.hotkey('space')
+        pyautogui.hotkey('down')
+        pyautogui.hotkey('tab')
+        sleep(2)
+        finalizar = navegador.find_element(By.XPATH, '//*[@id="btn_finaliza"]')
+        sleep(2)
+        finalizar.click()
+        sleep(20)
+
+
+        b_element = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[1]/div')
+        b_text = b_element.text
+        nr_lcto = b_text[0:99]
+        print('#### Número do lançamento: ', nr_lcto)
+
+    finally:
+        print('>> Encerrando função PDV Online.')
+        # Feche o navegador
+        #navegador.quit()
+
+
 
 navegador = Firefox()
 navegador.maximize_window()
@@ -1457,6 +1503,7 @@ print("lancamento_entrada")
 print("venda_com_encomenda")
 print("faturamento_de_venda")
 print("encomenda_de_produto")
+print("pdv_oline")
 
 
 
@@ -1508,6 +1555,7 @@ lancamento_entrada()
 venda_com_encomenda("12546", "7410")
 faturamento_de_venda()
 encomenda_de_produto()
+#pdv_oline()
 
 print('#######################################################################')
 print('#                LIBERADO USO MOUSE E TECLADO                         #')
@@ -1518,7 +1566,6 @@ sleep(3)
 navegador.get("https://felipe.testes.smart.sgisistemas.com.br/produtos")
 print('########## TELA PRODUTOS ##########')
 tela = tela + 1
-print('Tela: ', tela)
 error_message = navegador.find_elements(By.NAME,"filtros[descricao_ilike]")
 if error_message:
     print("A página foi aberta")
@@ -6809,6 +6856,7 @@ lancamento_entrada()
 venda_com_encomenda(avista com encomenda)
 faturamento_de_venda()
 encomenda_de_produto()
+pdv_online()
 """
 msg.attach(MIMEText(corpo_email, 'plain'))
 

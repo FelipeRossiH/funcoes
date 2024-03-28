@@ -14,6 +14,10 @@ from datetime import datetime
 import clipboard
 import datetime
 import random
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+import datetime
 
 smart = 'https://felipe.testes.smart.sgisistemas.com.br/'
 #smart_home = 'https://felipe.testes.smart.sgisistemas.com.br/'
@@ -203,3 +207,69 @@ sleep(2)
 venda_com_encomenda("12546", "7410")
 faturamento_de_venda()
 encomenda_de_produto()
+
+hora_fim = datetime.datetime.now()
+tempo_total = (hora_fim - hora_inicio)
+
+# Configurações do email
+email_remetente = 'felipe.rossi@sgisistemas.com.br'
+email_destinatarios = ['feliperossihav@icloud.com', 'sgi.felipe@gmail.com', 'gabrielama@unochapeco.edu.br']  # Lista de destinatários
+senha_remetente = '3971175Sgi!'  # Senha do remetente
+
+# Construindo o email
+msg = MIMEMultipart()
+msg['From'] = email_remetente
+msg['To'] = ', '.join(email_destinatarios)  # Transforma a lista em uma string separada por vírgulas
+msg['Subject'] = 'ENVIO AUTOMÁTICO - Relatório de Execução Automação - Felipe Rossi'
+
+# Corpo do email com as variáveis
+corpo_email = f"""\
+Robô iniciado em {hora_inicio}
+Robô finalizado em {hora_fim}
+Tempo de execução: {tempo_total}
+Quantidade de telas verificadas: {cont}
+Telas com erro: {erro}
+Funções executadas
+cadastrar_venda("12546", "7410")
+analise_credito()
+faturamento_de_venda()
+gestao_entrega()
+cadastrar_pessoa()
+cadastro_e_alteracao_de_escolaridade()
+cadastro_e_alteracao_de_tipo_dependente()
+configuracoes_mva_antecipacoes()
+configuracao_tipo_servico()
+adicionar_especificacao_produto()
+configuracoes_tipos_montagens_produtos()
+gera_titulo()
+funcao_gera_sped_fiscal()
+funcao_gera_sped_contribuicao()
+funcao_gera_cobranca()
+devolucao_venda()
+pedido_compra()
+lancamento_entrada()
+venda_com_encomenda("12546", "7410")
+faturamento_de_venda()
+encomenda_de_produto()
+"""
+msg.attach(MIMEText(corpo_email, 'plain'))
+
+# Configurações do servidor SMTP
+smtp_server = 'smtp.sgisistemas.com.br'
+smtp_port = 587  # Porta para TLS
+
+# Iniciando conexão com o servidor SMTP
+server = smtplib.SMTP(smtp_server, smtp_port)
+server.starttls()  # Inicia conexão TLS (Transport Layer Security) para criptografar a comunicação
+
+
+# Fazendo login no servidor SMTP
+server.login(email_remetente, senha_remetente)
+
+# Enviando email
+server.sendmail(email_remetente, email_destinatarios, msg.as_string())
+
+# Finalizando conexão com o servidor SMTP
+server.quit()
+
+print("Email enviado com sucesso!")
