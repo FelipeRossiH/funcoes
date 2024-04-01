@@ -20,6 +20,9 @@ from email.mime.text import MIMEText
 from selenium.common.exceptions import TimeoutException
 
 
+
+
+
 smart = 'https://felipe.testes.smart.sgisistemas.com.br/'
 #smart_home = 'https://felipe.testes.smart.sgisistemas.com.br/'
 cont = 0
@@ -73,7 +76,7 @@ def cadastro_e_alteracao_de_escolaridade():
         navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/form/div[3]/div/a[2]').click()
         sleep(2)
         navegador.find_element(By.XPATH, '/html/body/div[8]/div/div/div[2]/button[2]').click()
-        sleep(3)
+        sleep(5)
         b_element = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[1]/div/b')
         b_text = b_element.text
         msg_confirmacao = b_text[0:25]
@@ -1352,7 +1355,7 @@ def venda_com_encomenda(numero_cliente, numero_produto):
             print(f"Tempo restante: {segundo_atual} segundos")
             sleep(1)
 
-
+        sleep(5)
         # Obter número do lançamento
         b_element = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[1]/div/b')
         b_text = b_element.text
@@ -1454,6 +1457,263 @@ def pdv_oline():
         # Feche o navegador
         #navegador.quit()
 
+def cadastro_departamento():
+    try:
+        data_atual = datetime.datetime.now().strftime('%Y-%m-%d')
+        descricao = 'Departamento de Teste'
+
+        cadDepartamento = f"{descricao} - {data_atual}"
+
+        navegador.get("https://felipe.testes.smart.sgisistemas.com.br/departamentos_produtos")
+        print("Acessei cadastro de Departamentos")
+        btnAdicionar = WebDriverWait(navegador, 10).until(
+            EC.element_to_be_clickable((By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/div/div[1]/a'))
+        )
+        btnAdicionar.click()
+        #print("Cliquei em adicionar")
+        descricaoDepto = WebDriverWait(navegador, 10).until(
+            EC.element_to_be_clickable((By.XPATH, '//*[@id="descricao"]'))
+        )
+        descricaoDepto.send_keys(cadDepartamento)
+        #print("Adicionei descrição")
+        navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/form/div[2]/div/input[1]').click()
+        #print("Cliquei salvar cadastro")
+        sleep(5)
+        
+        #print("Tempo de mensagem de confirmação")
+        b_element = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[1]/div/b')
+        b_text = b_element.text
+        msg_confirmacao = b_text[0:25]
+        print('#### Mensagem confirmação: ', msg_confirmacao)
+        sleep(8)
+
+        if msg_confirmacao == 'Adicionado com Sucesso!':
+          print("### Cadastrado Departamento com sucesso: ", cadDepartamento)
+        else:
+          print(">>>>>>>>>>>>>> Erro na tela! Verificar.")
+
+
+    except Exception as e:
+        print(f"Ocorreu um erro durante o cadastro do departamento: {str(e)}")
+
+    finally:
+        print("Encerrado função cadastro de departamento")
+
+def cadastro_grupo():
+    try:
+
+        data_atual = datetime.datetime.now().strftime('%Y-%m-%d')
+        descricao = 'Grupo de Teste'
+
+        cadGrupo = f"{descricao} - {data_atual}"
+        navegador.get("https://felipe.testes.smart.sgisistemas.com.br/grupos_produtos")
+        #print("Acessei cadastro de Grupo")
+        btnAdicionar = WebDriverWait(navegador, 10).until(
+            EC.element_to_be_clickable((By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/div/div[1]/a'))
+        )
+        btnAdicionar.click()
+        #print("Cliquei em Adicionar")
+
+        descricaoGrupo = WebDriverWait(navegador, 10).until(
+            EC.element_to_be_clickable((By.XPATH, '//*[@id="descricao"]'))
+        )
+        descricaoGrupo.send_keys(cadGrupo)
+        #print("Informei descrição")
+        sleep(2)
+        dptoProduto = navegador.find_element(By.XPATH, '//*[@id="autocompletar_departamento_produto_id"]')
+        #print("Localizei campo Departamento do Produto")
+        dptoProduto.click()
+        #print("Cliquei no campo Departamento do Produto")
+        dptoProduto.send_keys(data_atual)
+        sleep(3)
+        pyautogui.press('down')
+        pyautogui.press('tab')
+
+        navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/form/div[2]/div/input[1]').click()
+        sleep(5)
+        b_element = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[1]/div/b')
+        b_text = b_element.text
+        msg_confirmacao = b_text[0:25]
+        print('#### Mensagem confirmação: ', msg_confirmacao)
+        sleep(8)
+
+        if msg_confirmacao == 'Adicionado com Sucesso!':
+          print("### Cadastrado Grupo com sucesso: ", cadGrupo)
+        else:
+          print(">>>>>>>>>>>>>> Erro na tela! Verificar.")
+
+
+
+    except Exception as e:
+        print(f"Ocorreu um erro durante o cadastro do grupo: {str(e)}")
+
+    finally:
+        print("Encerrado função cadastro de grupo")
+
+def cadastro_subgrupo():
+   try:
+       data_atual = datetime.datetime.now().strftime('%Y-%m-%d')
+       descricao = 'SubGrupo de Teste'
+       cadSubgrupo = f"{descricao} - {data_atual}"
+
+       navegador.get("https://felipe.testes.smart.sgisistemas.com.br/subgrupos_produtos")
+       print("Acessei cadastro de Grupo")
+       btnAdicionar = WebDriverWait(navegador, 10).until(
+           EC.element_to_be_clickable((By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/div/div[1]/a'))
+       )
+       btnAdicionar.click()
+       #print("Cliquei em Adicionar")
+
+       descricaoSubgrupo = WebDriverWait(navegador, 10).until(
+            EC.element_to_be_clickable((By.XPATH, '//*[@id="descricao"]'))
+        )
+       descricaoSubgrupo.send_keys(cadSubgrupo)
+       #print("Informei descrição")
+       sleep(2)
+
+       grupoProduto = navegador.find_element(By.XPATH, '//*[@id="autocompletar_grupo_produto_id"]')
+       #print("Localizei campo Grupo do Produto")
+       grupoProduto.click()
+       #print("Cliquei no campo Departamento do Produto")
+       grupoProduto.send_keys(data_atual)
+       sleep(3)
+       pyautogui.press('down')
+       pyautogui.press('tab')
+
+       navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/form/div[2]/div/input[1]').click()
+       sleep(5)
+       b_element = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[1]/div/b')
+       b_text = b_element.text
+       msg_confirmacao = b_text[0:25]
+       print('#### Mensagem confirmação: ', msg_confirmacao)
+       sleep(8)
+
+       if msg_confirmacao == 'Adicionado com Sucesso!':
+         print("### Cadastrado SubGrupo com sucesso: ", cadSubgrupo)
+       else:
+         print(">>>>>>>>>>>>>> Erro na tela! Verificar.")
+      
+   except Exception as e:
+        print(f"Ocorreu um erro durante o cadastro do grupo: {str(e)}")
+
+   finally:
+        print("Encerrado função cadastro de grupo")
+
+
+def cadastro_marca():
+   try:
+       data_atual = datetime.datetime.now().strftime('%Y-%m-%d')
+       descricao = 'Marca de Teste'
+       cadMarca = f"{descricao} - {data_atual}"
+
+       navegador.get('https://felipe.testes.smart.sgisistemas.com.br/marcas_produtos')
+       print("Acessei cadastro de Marca")
+       btnAdicionar = WebDriverWait(navegador, 10).until(
+           EC.element_to_be_clickable((By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/div/div[1]/a'))
+       )
+       btnAdicionar.click()
+       #print("Cliquei em Adicionar")
+
+       descricaoMarca = WebDriverWait(navegador, 10).until(
+            EC.element_to_be_clickable((By.XPATH, '//*[@id="descricao"]'))
+        )
+       descricaoMarca.send_keys(cadMarca)
+       
+       navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/form/div[2]/div/input[1]').click()
+       sleep(5)
+       b_element = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[1]/div/b')
+       b_text = b_element.text
+       msg_confirmacao = b_text[0:25]
+       print('#### Mensagem confirmação: ', msg_confirmacao)
+       sleep(8)
+
+       if msg_confirmacao == 'Adicionado com Sucesso!':
+         print("### Cadastrado SubGrupo com sucesso: ", cadMarca)
+       else:
+         print(">>>>>>>>>>>>>> Erro na tela! Verificar.")    
+
+
+
+   except Exception as e:
+        print(f"Ocorreu um erro durante o cadastro da marca: {str(e)}")
+
+   finally:
+        print("Encerrado função cadastro da marca")
+
+def cadastro_de_produto():
+    try:
+        data_atual = datetime.datetime.now().strftime('%Y-%m-%d')
+        descricao = 'Cadastro automático de produto.'
+        descProduto = f"{descricao} - {data_atual}"
+
+        navegador.get("https://felipe.testes.smart.sgisistemas.com.br/produtos")
+
+        btnAdicionar = WebDriverWait(navegador, 10).until(
+            EC.element_to_be_clickable((By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/div/div[1]/a'))
+        )
+        btnAdicionar.click()
+
+        descricaoProduto = navegador.find_element(By.XPATH, '//*[@id="descricao"]')
+        descricaoProduto.send_keys(descProduto)
+
+        subgrupo = navegador.find_element(By.XPATH, '//*[@id="autocompletar_subgrupo_produto_id"]')
+        subgrupo.send_keys(data_atual)
+        sleep(2)
+
+        pyautogui.press('down')
+        pyautogui.press('tab')
+
+        marca = navegador.find_element(By.XPATH, '//*[@id="autocompletar_marca_produto_id"]')
+        marca.send_keys(data_atual)
+        sleep(2)
+        pyautogui.press('down')
+        pyautogui.press('tab')
+
+        undMedida = navegador.find_element(By.XPATH, '//*[@id="autocompletar_unidade_medida_id"]')
+        undMedida.send_keys('UN')
+        sleep(2)
+        pyautogui.press('down')
+        pyautogui.press('tab')
+
+        tributacao = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/form/div[4]/div/div/ul/li[3]/a')
+        tributacao.click()
+        sleep(2)
+
+        origem = navegador.find_element(By.XPATH, '//*[@id="autocompletar_origem_produto_id"]')
+        origem.send_keys('Nacional, exceto as indicadas nos códigos 3 a 5.')
+        sleep(2)
+        pyautogui.press('down')
+        pyautogui.press('tab')
+
+        ncm = navegador.find_element(By.XPATH, '//*[@id="autocompletar_ncm_id"]')
+        ncm.send_keys('9403.91.00')
+        sleep(2)
+        pyautogui.press('down')
+        pyautogui.press('tab')
+
+        sleep(2)
+
+        navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/input[1]').click()
+
+        sleep(5)
+        b_element = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[1]/div/b')
+        b_text = b_element.text
+        msg_confirmacao = b_text[0:25]
+        print('#### Mensagem confirmação: ', msg_confirmacao)
+        sleep(8)
+
+        if msg_confirmacao == 'Adicionado com Sucesso!':
+          print("### Cadastrado Produto com sucesso: ")
+        else:
+         print(">>>>>>>>>>>>>> Erro na tela! Verificar.")    
+
+    except Exception as e:
+        print(f"Ocorreu um erro durante o cadastro do produto: {str(e)}")
+
+    finally:
+         print("Encerrado função cadastro de produto")
+ 
+
 
 
 navegador = Firefox()
@@ -1504,6 +1764,11 @@ print("venda_com_encomenda")
 print("faturamento_de_venda")
 print("encomenda_de_produto")
 print("pdv_oline")
+print("cadastro_departamento")
+print("cadastro_grupo")
+print("cadastro_subgrupo")
+print("cadastro_marca")
+print("cadastro_de_produto")
 
 
 
@@ -1520,6 +1785,7 @@ print("Aguarda 3 segundos para validação da mensagem de confirmação")
 for segundo_atual in range(3, 0, -1):
     print(f"Tempo restante: {segundo_atual} segundos")
     sleep(1)
+sleep(2)    
 b_element = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[1]/div/b') 
 b_text = b_element.text
 msg_confirmacao = b_text[0:99]
@@ -1534,6 +1800,11 @@ else:
 
 
 # Chamada de funções
+cadastro_departamento()
+cadastro_grupo()
+cadastro_subgrupo()
+cadastro_marca()
+cadastro_de_produto()
 cadastrar_venda("12546", "7410")
 analise_credito()
 faturamento_de_venda()
@@ -1555,7 +1826,8 @@ lancamento_entrada()
 venda_com_encomenda("12546", "7410")
 faturamento_de_venda()
 encomenda_de_produto()
-#pdv_oline()
+#pdv_oline()    
+
 
 print('#######################################################################')
 print('#                LIBERADO USO MOUSE E TECLADO                         #')
@@ -6818,7 +7090,7 @@ tempo_total = (hora_fim - hora_inicio)
 
 # Configurações do email
 email_remetente = 'felipe.rossi@sgisistemas.com.br'
-email_destinatarios = ['feliperossihav@icloud.com', 'sgi.felipe@gmail.com']  # Lista de destinatários
+email_destinatarios = ['feliperossihav@icloud.com', 'sgi.felipe@gmail.com', 'desenv@sgisistemas.com.br']  # Lista de destinatários
 senha_remetente = '3971175Sgi!'  # Senha do remetente
 
 # Construindo o email
@@ -6830,6 +7102,7 @@ msg['Subject'] = 'ENVIO AUTOMÁTICO - Verificação deploy - Felipe Rossi'
 # Corpo do email com as variáveis
 corpo_email = f"""\
 **********************************************
+DEPLOY/28-03-2024
 Robô iniciado em {hora_inicio}
 Robô finalizado em {hora_fim}
 Tempo de execução: {tempo_total}
@@ -6857,6 +7130,10 @@ lancamento_entrada()
 venda_com_encomenda(avista com encomenda)
 faturamento_de_venda()
 encomenda_de_produto()
+cadastro_departamento()
+cadastro_grupo()
+cadastro_subgrupo()
+cadastro_produto()
 """
 msg.attach(MIMEText(corpo_email, 'plain'))
 
