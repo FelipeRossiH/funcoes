@@ -11,16 +11,17 @@ import getpass
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+import pyautogui
 
 redmine = 'https://redmine.sgisistemas.com.br/login'
 
 
-#userRedmine = input("Informe seu usuário: ")
-#passwordRedmine = getpass.getpass("Informe sua senha: ")
-#data_Inicial = input("Por favor, insira a data inicial do período de atualização no formato 'DD/MM/AAAA': ")
-#dtIni = datetime.strptime(data_Inicial, '%d/%m/%Y')
-#data_Final = input("Por favor, insira a data final do pe´riodo de atualização no formato 'DD/MM/AAAA': ")
-#dtFim = datetime.strptime(data_Final, '%d/%m/%Y')
+userRedmine = input("Informe seu usuário: ")
+passwordRedmine = getpass.getpass("Informe sua senha: ")
+data_Inicial = input("Por favor, insira a data inicial do período de atualização no formato 'DD/MM/AAAA': ")
+dtIni = datetime.strptime(data_Inicial, '%d/%m/%Y')
+data_Final = input("Por favor, insira a data final do pe´riodo de atualização no formato 'DD/MM/AAAA': ")
+dtFim = datetime.strptime(data_Final, '%d/%m/%Y')
 print("SERÃO FILTRADAS TAREFAS ATUALIZADAS EM ABRIL/2024")
 #metaPeriodo = float(input("Informe a meta de horas para o período informado: "))
 metaPeriodo = 1117
@@ -44,27 +45,26 @@ navegador.find_element(By.XPATH, '/html/body/div/div[2]/div[1]/div[1]/ul/li[1]/a
 
 navegador.find_element(By.XPATH, '//*[@id="cb_status_id"]').click()
 
-# navegador.find_element(By.XPATH, '//*[@id="add_filter_select"]').click()
-# for i in range(38):
-#     pyautogui.press('down')
-# pyautogui.press('tab')
+navegador.find_element(By.XPATH, '//*[@id="add_filter_select"]').click()
+for i in range(38):
+   pyautogui.press('down')
+pyautogui.press('tab')
 
-# navegador.find_element(By.XPATH, '//*[@id="operators_cf_27"]').click()
-# for i in range(3):
-#     pyautogui.press('down')
-# pyautogui.press('tab')
-
-# sleep(1)
-# dataIni = navegador.find_element(By.ID, 'values_cf_27_1')
-# #dataIni.click()
-# #dataIni.send_keys(dataInicial)
-# dataIni.send_keys(dtIni.strftime('%Y-%m-%d'))
-# sleep(1)
-# dataFim = navegador.find_element(By.ID, 'values_cf_27_2')
-# #dataFim.click()
-# #dataFim.send_keys(dataFinal)
-# dataFim.send_keys(dtFim.strftime('%Y-%m-%d'))
-# sleep(2)
+navegador.find_element(By.XPATH, '//*[@id="operators_cf_27"]').click()
+for i in range(3):
+    pyautogui.press('down')
+pyautogui.press('tab')
+sleep(1)
+dataIni = navegador.find_element(By.ID, 'values_cf_27_1')
+dataIni.click()
+#dataIni.send_keys(dataInicial)
+dataIni.send_keys(dtIni.strftime('%Y-%m-%d'))
+sleep(1)
+dataFim = navegador.find_element(By.ID, 'values_cf_27_2')
+dataFim.click()
+#dataFim.send_keys(dataFinal)
+dataFim.send_keys(dtFim.strftime('%Y-%m-%d'))
+sleep(2)
 
 consulta = navegador.find_element(By.XPATH, '/html/body/div/div[2]/div[1]/div[3]/div[1]/ul[3]/li[4]/a')
 consulta.click()
