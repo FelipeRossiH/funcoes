@@ -128,17 +128,11 @@ diferenca = soma_tempo_estimado - soma_tempo_gasto
 projeto = trf_teste['Projeto'].value_counts().to_string()
 tipo = trf_teste['Tipo'].value_counts().to_string()
 
-so_tarefa_teste = trf_teste.loc[trf_teste['Tipo'] == 'Teste']
-quantidade_tarefa_teste = len(so_tarefa_teste)
-tarefas_por_usuario_teste = so_tarefa_teste['Atribuído para'].value_counts()
+# Filtrando apenas tarefas de manutenção
+manutencao = trf_teste.loc[trf_teste['Tipo'] == 'Manutenção']
 
-so_tarefa_desenvolvimento = trf_teste.loc[trf_teste['Tipo'] == 'Desenvolvimento']
-quantidade_tarefa_desenvolvimento = len(so_tarefa_desenvolvimento)
-tarefas_por_usuario_desenvolvimento = so_tarefa_desenvolvimento['Atribuído para'].value_counts()
-
-so_tarefa_correcao = trf_teste[trf_teste['Título'].str.contains('Correção|Correções', case=False, na=False)]
-quantidade_tarefa_correcao = len(so_tarefa_correcao)
-tarefas_por_usuario_correcao = so_tarefa_correcao['Atribuído para'].value_counts()
+# Agrupando por mês e contando a quantidade de tarefas de manutenção
+quantidade_por_mes = manutencao.groupby(manutencao['Data de criação'].dt.to_period('M')).size()
 
 print("##############################################################################################")
 print(trf_teste.to_string(index=False))
@@ -153,9 +147,8 @@ print("Quantidade de tarefa por projeto:\n", projeto)
 print("----------------------------------------------------------------------------------------------")
 print("Quantidade de tarefa por tipo:\n", tipo)
 print("----------------------------------------------------------------------------------------------")
-print("Quantidade de tarefas do tipo teste:", quantidade_tarefa_teste)
-print("Quantidade de tarefas do tipo desenvolvimento:", quantidade_tarefa_desenvolvimento)
-print("Quantidade de tarefas que contêm 'Correção' no título:", quantidade_tarefa_correcao)
+print("Quantidade de tarefas de manutenção por mês:")
+print(quantidade_por_mes)
 print(trf_teste)
 
 email_remetente = 'felipe.rossi@sgisistemas.com.br'

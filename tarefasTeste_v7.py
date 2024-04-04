@@ -114,8 +114,8 @@ navegador.quit()
 
 print("Lendo arquivo")
 trf_teste = pd.read_csv(r'C:\\Users\\felip\\Downloads\\issues.csv', encoding='latin1', delimiter=';')
-trf_teste = trf_teste.filter(['#', 'Projeto', 'Tipo', 'Título', 'Situação', 'Atribuído para', 'Tempo estimado geral', 'Tempo gasto geral'])
-
+trf_teste = trf_teste.filter(['#', 'Projeto', 'Tipo', 'Título', 'Situação', 'Atribuído para', 'Tempo estimado geral', 'Tempo gasto geral', 'Início'])
+trf_teste['Início'] = pd.to_datetime(trf_teste['Início'], format='%d/%m/%Y')
 trf_teste['Tempo estimado geral'].fillna(0, inplace=True)
 trf_teste['Tempo estimado geral'] = pd.to_numeric(trf_teste['Tempo estimado geral'], errors='coerce')
 
@@ -140,6 +140,12 @@ so_tarefa_correcao = trf_teste[trf_teste['Título'].str.contains('Correção|Cor
 quantidade_tarefa_correcao = len(so_tarefa_correcao)
 tarefas_por_usuario_correcao = so_tarefa_correcao['Atribuído para'].value_counts()
 
+manutencao = trf_teste.loc[trf_teste['Tipo'] == 'Manutenção']
+
+# Quantidade de tarefas por mês e por projeto
+quantidade_por_mes_projeto = trf_teste.groupby([trf_teste['Início'].dt.to_period('M'), 'Projeto']).size()
+quantidade_por_mes_tipo = trf_teste.groupby([trf_teste['Início'].dt.to_period('M'), 'Tipo']).size()
+
 print("##############################################################################################")
 print(trf_teste.to_string(index=False))
 print("##############################################################################################")
@@ -156,10 +162,17 @@ print("-------------------------------------------------------------------------
 print("Quantidade de tarefas do tipo teste:", quantidade_tarefa_teste)
 print("Quantidade de tarefas do tipo desenvolvimento:", quantidade_tarefa_desenvolvimento)
 print("Quantidade de tarefas que contêm 'Correção' no título:", quantidade_tarefa_correcao)
+#print("Tarefas manutenção: ", quantidade_por_mes)
+print("Quantidade de tarefas por mês e por projeto:\n", quantidade_por_mes_projeto)
+print("---------------------------------------------------------------------------------------------")
+print("Quantidade de tarefas por mês e tipo ", quantidade_por_mes_tipo)
 print(trf_teste)
+#Faz parte do corpo do email
+#Quantidade de tarefas por mês e por projeto:\n
+#{quantidade_por_mes_projeto}
 
 email_remetente = 'felipe.rossi@sgisistemas.com.br'
-email_destinatarios = ['feliperossihav@icloud.com', 'sgi.felipe@gmail.com', 'felipe.rossi@sgisistemas.com.br']
+email_destinatarios = ['feliperossihav@icloud.com', 'sgi.felipe@gmail.com', 'felipe.rossi@sgisistemas.com.br', 'maykel@sgisistemas.com.br']
 senha_remetente = '3971175Sgi!'
 
 msg = MIMEMultipart()
@@ -194,7 +207,10 @@ Quantidade de tarefas de 'Correção': {quantidade_tarefa_correcao}
 Quantidade de tarefas de correção por usuário:
 {tarefas_por_usuario_correcao}
 ----------------------------------------------------------------------------------------------
-{trf_teste}
+Quantidade de tarefas por mês e tipo:
+{quantidade_por_mes_tipo}
+----------------------------------------------------------------------------------------------
+
 ##############################################################################################
 """
 else:

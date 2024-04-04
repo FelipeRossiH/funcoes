@@ -92,7 +92,7 @@ tmp_total['Tempo gasto geral'] = tmp_total['Tempo gasto geral'].str.replace(',',
 soma_tempo_gasto = tmp_total['Tempo gasto geral'].sum()
 quantidade_tipo = tmp_total['Tipo'].value_counts().to_string()
 quantidade_situacao = tmp_total['Situação'].value_counts().to_string()
-diferenca = soma_tempo_gasto - metaPeriodo
+diferenca = metaPeriodo - soma_tempo_gasto
 
 
 
