@@ -1928,6 +1928,217 @@ def simulacao_venda():
     finally:
         print("Encerrando tela simulação de venda.")
 
+def cadastro_grupo_receita_despesa():
+   
+    try:
+       data_atual = datetime.datetime.now().strftime('%Y-%m-%d')
+       desc_grupo_hist_rec_desp = 'Grupo Historico Receita/Despesa Automatizado'
+       desc_grupo_hist_rec_desp_data = f"{desc_grupo_hist_rec_desp} - {data_atual}"
+       
+       navegador.get('https://felipe.testes.smart.sgisistemas.com.br/grupos_historicos_rd')
+       print("######### TELA GRUPOS DE HISTÓRICOS DE RECEITAS E DESPESAS #########")
+
+       btn_adicionar = WebDriverWait(navegador, 10).until(
+            EC.visibility_of_element_located((By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/div/div[1]/a'))
+        )
+       btn_adicionar.click()
+       sleep(5)
+       descricao = WebDriverWait(navegador, 10).until(
+          EC.visibility_of_element_located((By.XPATH, '//*[@id="descricao"]'))
+       )
+       descricao.send_keys(desc_grupo_hist_rec_desp_data)
+       sleep(0.5)
+       navegador.find_element(By.XPATH,'/html/body/div[4]/div[1]/div[2]/div[2]/form/div[2]/div/input[1]').click()
+       sleep(3)
+       b_element = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[1]/div/b')
+       b_text = b_element.text
+       msg_confirmacao = b_text[0:32]
+       print('#### Mensagem confirmação: ', msg_confirmacao)
+       sleep(8)
+
+       if msg_confirmacao == 'Adicionado com Sucesso!':
+         print("### Tela cadastro Grupos de Históricos de Receita e Despesas Ok.")
+       else:
+         print(">>>>>>>>>>>>>> Erro na tela! Verificar.")
+
+       print('### INICIANDO EXCLUSÃO ###')
+
+       filtro = navegador.find_element(By.XPATH, '//*[@id="descricao_ilike"]')
+       filtro.send_keys(desc_grupo_hist_rec_desp_data)
+
+       navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/div/form/div/div[2]/div[2]/div/div[4]/div/button[1]/span').click()
+       sleep(2)
+       navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/div/div[2]/div[1]/table/tbody/tr/td/a').click()
+       sleep(2)
+       btn_exclusao = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/form/div[2]/div/a[2]')
+       btn_exclusao.click()
+       sleep(2)
+       btn_confirma = navegador.find_element(By.XPATH, '/html/body/div[8]/div/div/div[2]/button[2]')
+       btn_confirma.click()
+
+       sleep(3)
+
+       b_element = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[1]/div/b')
+       b_text = b_element.text
+       msg_confirmacao = b_text[0:25]
+       print('#### Mensagem confirmação: ', msg_confirmacao)
+       sleep(8)
+
+       if msg_confirmacao == 'Excluído com Sucesso!':
+         print("### Tela cadastro Grupos de Históricos de Receita e Despesas Ok.")
+       else:
+         print(">>>>>>>>>>>>>> Erro na tela! Verificar.")
+
+
+       print('### INICIANDO SEGUNDA INCLUSÃO ###')
+
+
+       btn_adicionar = WebDriverWait(navegador, 10).until(
+            EC.visibility_of_element_located((By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/div/div[1]/a'))
+        )
+       btn_adicionar.click()
+       sleep(5)
+       descricao = WebDriverWait(navegador, 10).until(
+          EC.visibility_of_element_located((By.XPATH, '//*[@id="descricao"]'))
+       )
+       descricao.send_keys(desc_grupo_hist_rec_desp_data)
+       sleep(0.5)
+       navegador.find_element(By.XPATH,'/html/body/div[4]/div[1]/div[2]/div[2]/form/div[2]/div/input[1]').click()
+       sleep(3)
+       b_element = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[1]/div/b')
+       b_text = b_element.text
+       msg_confirmacao = b_text[0:32]
+       print('#### Mensagem confirmação: ', msg_confirmacao)
+       sleep(8)
+
+       if msg_confirmacao == 'Adicionado com Sucesso!':
+         print("### Tela cadastro Grupos de Históricos de Receita e Despesas Ok.")
+       else:
+         print(">>>>>>>>>>>>>> Erro na tela! Verificar.")
+
+
+
+
+    finally:
+       print("Encerrado função cadastro_grupo_receita_despesa.")
+
+def cadastro_subgrupo_historico_receita_despesa():
+    try:
+       data_atual = datetime.datetime.now().strftime('%Y-%m-%d')
+       desc_subgrupo_hist_rec_desp = 'SUBGrupo Historico Receita/Despesa Automatizado'
+       desc_subgrupo_hist_rec_desp_data = f"{desc_subgrupo_hist_rec_desp} - {data_atual}"
+       
+       navegador.get('https://felipe.testes.smart.sgisistemas.com.br/subgrupos_historicos_rd')
+       print("######### TELA SUBGRUPOS DE HISTÓRICOS DE RECEITAS E DESPESAS #########")
+
+       btn_adicionar = WebDriverWait(navegador, 10).until(
+            EC.visibility_of_element_located((By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/div/div[1]/a'))
+        )
+       btn_adicionar.click()
+       sleep(5)
+
+       descricao = WebDriverWait(navegador, 10).until(
+          EC.visibility_of_element_located((By.XPATH, '//*[@id="descricao"]'))
+       )
+       descricao.send_keys(desc_subgrupo_hist_rec_desp_data)
+       sleep(2)
+       
+       grupo_hist_rec_desp = navegador.find_element(By.XPATH, '//*[@id="autocompletar_grupo_historico_rd_id"]')
+       grupo_hist_rec_desp.click()
+       sleep(2)
+       grupo_hist_rec_desp.send_keys(data_atual)
+       sleep(2)
+       pyautogui.hotkey('down')
+       pyautogui.hotkey('tab')
+       sleep(0.5)
+
+       navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/form/div[3]/div/input[1]').click()
+
+       sleep(3)
+
+       b_element = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[1]/div/b')
+       b_text = b_element.text
+       msg_confirmacao = b_text[0:32]
+       print('#### Mensagem confirmação: ', msg_confirmacao)
+       sleep(3)
+
+       if msg_confirmacao == 'Adicionado com Sucesso!':
+         print("### Tela cadastro SUBGrupos de Históricos de Receita e Despesas Ok.")
+       else:
+         print(">>>>>>>>>>>>>> Erro na tela! Verificar.")
+
+       
+       print("### INICIANDO EXCLUSÃO ###")
+
+       filtro = navegador.find_element(By.XPATH, '//*[@id="descricao_ilike"]')
+       filtro.send_keys(desc_subgrupo_hist_rec_desp_data)
+
+       navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/div/form/div/div[2]/div[2]/div/div[4]/div/button[1]').click()
+
+       navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/div/div[2]/div[2]/table/tbody/tr/td[1]/a').click()
+       sleep(2)
+       navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/form/div[3]/div/a[2]').click()
+       sleep(2)
+       navegador.find_element(By.XPATH, '/html/body/div[8]/div/div/div[2]/button[2]').click()
+       sleep(2)
+
+       b_element = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[1]/div/b')
+       b_text = b_element.text
+       msg_confirmacao = b_text[0:25]
+       print('#### Mensagem confirmação: ', msg_confirmacao)
+       sleep(8)
+
+       if msg_confirmacao == 'Excluído com Sucesso!':
+         print("### Tela cadastro Grupos de Históricos de Receita e Despesas Ok.")
+       else:
+         print(">>>>>>>>>>>>>> Erro na tela! Verificar.")
+
+
+       print("### INICIANDO SEGUNDA INCLUSÃO ###")
+       
+       btn_adicionar = WebDriverWait(navegador, 10).until(
+            EC.visibility_of_element_located((By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/div/div[1]/a'))
+        )
+       btn_adicionar.click()
+       sleep(5)
+
+       descricao = WebDriverWait(navegador, 10).until(
+          EC.visibility_of_element_located((By.XPATH, '//*[@id="descricao"]'))
+       )
+       descricao.send_keys(desc_subgrupo_hist_rec_desp_data)
+       sleep(2)
+       
+       grupo_hist_rec_desp = navegador.find_element(By.XPATH, '//*[@id="autocompletar_grupo_historico_rd_id"]')
+       grupo_hist_rec_desp.click()
+       sleep(2)
+       grupo_hist_rec_desp.send_keys(data_atual)
+       sleep(2)
+       pyautogui.hotkey('down')
+       pyautogui.hotkey('tab')
+       sleep(0.5)
+
+       navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/form/div[3]/div/input[1]').click()
+
+       sleep(3)
+
+       b_element = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[1]/div/b')
+       b_text = b_element.text
+       msg_confirmacao = b_text[0:32]
+       print('#### Mensagem confirmação: ', msg_confirmacao)
+       sleep(3)
+
+       if msg_confirmacao == 'Adicionado com Sucesso!':
+         print("### Tela cadastro SUBGrupos de Históricos de Receita e Despesas Ok.")
+       else:
+         print(">>>>>>>>>>>>>> Erro na tela! Verificar.")
+
+
+
+
+
+    finally:
+        print("Encerrando execução função cadastro_subgrupo_historico_receita_despesa ")
+
 
  
 
@@ -1989,6 +2200,8 @@ print("cadastro_de_produto")
 print("conta_caixa_por_usuario")
 print("cadastro_conta_corrente")
 print("simulacao_venda")
+print("cadastro_grupo_receita_despesa")
+print("cadastro_subgrupo_historico_receita_despesa")
 
 
 
@@ -2050,6 +2263,8 @@ encomenda_de_produto()
 conta_caixa_por_usuario()
 conta_corrente()
 simulacao_venda()
+cadastro_grupo_receita_despesa()
+cadastro_subgrupo_historico_receita_despesa()
 
 
 print('#######################################################################')
@@ -7313,7 +7528,7 @@ tempo_total = (hora_fim - hora_inicio)
 
 # Configurações do email
 email_remetente = 'felipe.rossi@sgisistemas.com.br'
-email_destinatarios = ['feliperossihav@icloud.com', 'sgi.felipe@gmail.com']  # Lista de destinatários
+email_destinatarios = ['feliperossihav@icloud.com', 'sgi.felipe@gmail.com', 'desenv@sgisistemas.com.br']  # Lista de destinatários
 senha_remetente = '3971175Sgi!'  # Senha do remetente
 
 # Construindo o email
@@ -7360,6 +7575,8 @@ cadastro_produto()
 caixaconta_por_usuario()
 conta_corrente()
 simulacao_venda()
+cadastro_grupo_receita_despesa()
+cadastro_subgrupo_historico_receita_despesa()
 
 """
 msg.attach(MIMEText(corpo_email, 'plain'))

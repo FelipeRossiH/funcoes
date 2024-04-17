@@ -36,34 +36,34 @@ def cadastro_e_alteracao_de_escolaridade():
 
     try:
         print("Cadastro e alteração de escolaridade")
-        sleep(3)  # Espera até 3 segundos por elementos
+        sleep(3) 
 
         navegador.get("https://felipe.testes.smart.sgisistemas.com.br/escolaridades")
         print('### Abrindo cadastro de escolaridade')
 
-        # Clique no botão para abrir o formulário de cadastro
+        
         navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/div/div[1]/a').click()
 
-        # Preenche o campo "descricao" com o valor "Escolaridade Automática"
+        
         nome_element = navegador.find_element(By.XPATH, '//*[@id="descricao"]')
         nome_element.send_keys('Escolaridade Automática')
         print('### Preenchido campo "descricao" com "Escolaridade Automática"')
 
-        # Clique no botão "Salvar"
+        
         navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/form/div[3]/div/input[2]').click()
         sleep(3)
 
-        # Preenche o campo "descricao" com o valor "Escolaridade Automática Alterada"
+        
         nome_element = navegador.find_element(By.XPATH, '//*[@id="descricao"]')
         nome_element.send_keys('Escolaridade Automática Alterada')
         print('### Preenchido campo "descricao" com "Escolaridade Automática Alterada')
         sleep(3)
 
-        # Clique no botão "Salvar" novamente
+        
         navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/form/div[3]/div/input[1]').click()
         sleep(3)
 
-        # Obtenha o código da escolaridade
+        
         codigo_escolaridade = navegador.find_element(By.CLASS_NAME, "campo_id")
         print('### Código da escolaridade:', codigo_escolaridade.text)
 
@@ -370,18 +370,18 @@ def adicionar_especificacao_produto():
         opcao_element.send_keys('Segunda opção')
         print('### Passei segunda opção')
 
-        # Clique no botão "Salvar"
+        
         WebDriverWait(navegador, 10).until(
             EC.element_to_be_clickable((By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/form/div[3]/div/input[2]'))
         ).click()
-        sleep(3)
-        # Clique no botão "Excluir"
+        sleep(10)
+        
         WebDriverWait(navegador, 10).until(
             EC.element_to_be_clickable((By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/form/div[3]/div/a[2]'))
         ).click()
         sleep(2)
 
-        # Confirme a exclusão
+        
         WebDriverWait(navegador, 10).until(
             EC.element_to_be_clickable((By.XPATH, '/html/body/div[8]/div/div/div[2]/button[2]'))
         ).click()
@@ -695,6 +695,9 @@ def cadastrar_venda(numero_cliente, numero_produto):
 
 
 def faturamento_de_venda():
+  if nr_lcto == 0:
+        print("Sem número de lançamento. Encerrando a função faturamento_de_venda.")
+        return  
 
   try:
       print("########## TELA RECEBIMENTOS ##########")
@@ -705,9 +708,9 @@ def faturamento_de_venda():
       sleep(3)
       nome_element.send_keys(nr_lcto)
       pyautogui.hotkey('tab')
-      sleep(3)
+      sleep(10)
       nome_element = navegador.find_element(By.XPATH, '/html/body/div[4]/div/div[2]/div[2]/form/div[3]/div/div/div[2]/div/div[4]/div/div/table/tbody/tr/td[1]/label').click()
-      sleep(3)
+      sleep(10)
       scroll_to_bottom_script = "window.scrollTo(0, document.body.scrollHeight);"
       # Executa o script para rolar a página
       navegador.execute_script(scroll_to_bottom_script)
@@ -723,7 +726,7 @@ def faturamento_de_venda():
             print(f"Índice da janela: {indice}")
             if indice > 0:
                 navegador.close()
-      sleep(2)
+      sleep(20)
       abas = navegador.window_handles
       if len(abas) > 0:
           navegador.switch_to.window(abas[0])
@@ -733,6 +736,9 @@ def faturamento_de_venda():
       print("Encerrado função funcao_fatura_lcto")
 
 def gestao_entrega():
+  if nr_lcto == 0:
+        print("Sem número de lançamento. Encerrando a função gestao_entrega.")
+        return
   print('Recebido da função cadastrar_venda o lançamento: ', nr_lcto)
   try:
     sleep(5)
@@ -888,12 +894,12 @@ def funcao_gera_sped_fiscal():
     #elemento = WebDriverWait(navegador, tme).until(EC.visibility_of_element_located((By.XPATH, '//*[@id="data_inicial"]')))
     nome_element = navegador.find_element(By.ID, 'data_inicial')
     nome_element.clear()
-    nome_element.send_keys('01102023')
+    nome_element.send_keys('01012024')
     print("Passei data inicial")
     sleep(2)
     nome_element = navegador.find_element(By.ID, 'data_final')
     nome_element.clear()
-    nome_element.send_keys('31102023')
+    nome_element.send_keys('31012024')
     print("Passei data final")
     sleep(2)
     nome_element = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/form/div/div[5]/span/div/div[1]/table/tbody/tr[1]/td[2]')
@@ -903,7 +909,7 @@ def funcao_gera_sped_fiscal():
     sleep(2)
     nome_element = navegador.find_element(By.XPATH, '//*[@id="btn-gerar-sped"]').click()
   finally:
-    sleep(20)
+    sleep(10)
     print("Encerrando funcao_gera_sped_fiscal")
 
 def funcao_gera_sped_contribuicao():
@@ -915,12 +921,12 @@ def funcao_gera_sped_contribuicao():
 
     nome_element = navegador.find_element(By.ID, 'data_inicial')
     nome_element.clear()
-    nome_element.send_keys('01102023')
+    nome_element.send_keys('01012024')
     print("Passei data inicial")
     sleep(2)
     nome_element = navegador.find_element(By.ID, 'data_final')
     nome_element.clear()
-    nome_element.send_keys('31102023')
+    nome_element.send_keys('31012024')
     print("Passei data final")
     sleep(2)
     nome_element = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/form/div[3]/div/div[2]/div[1]/table/tbody/tr[1]/td[2]')
@@ -930,7 +936,7 @@ def funcao_gera_sped_contribuicao():
     sleep(2)
     nome_element = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/form/div[3]/div/input[2]').click()
   finally:
-    sleep(20)
+    sleep(10)
     print("Encerrando funcao_gera_sped_contribuicao")
 
 
@@ -971,6 +977,9 @@ def funcao_gera_cobranca():
 
 
 def analise_credito():
+  if nr_lcto == 0:
+        print("Sem número de lançamento. Encerrando a função analise_credito.")
+        return
   #nr_lcto = 93986
   print("Recebido da função cadastrar_venda o lançamento: ", nr_lcto)
 
@@ -1031,6 +1040,9 @@ def analise_credito():
 
 
 def devolucao_venda():
+    if nr_lcto == 0:
+        print("Sem número de lançamento. Encerrando a função devolucao_venda.")
+        return
 
     print("Recebido da função cadastrar_venda o lançamento: ", nr_lcto)
 
@@ -1142,7 +1154,7 @@ def lancamento_entrada():
     pyautogui.write('10')
     pyautogui.hotkey('tab')
     print("Informei 10 unidades de lançamento.")
-    
+    sleep(3)
     navegador.find_element(By.XPATH, '//*[@id="concluir_quantidade_por_local"]').click()
     sleep(3)
     cst_icms = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/div[1]/div[2]/form/div[18]/div/div[2]/div/div[2]/table/tbody/tr/td[11]')
@@ -1198,10 +1210,10 @@ def lancamento_entrada():
     sleep(1)
 
     navegador.find_element(By.XPATH, '//*[@id="emitir_documento"]').click()
-    sleep(1)
+    sleep(10)
     navegador.find_element(By.XPATH, '/html/body/div[9]/div/div/div[2]/button[2]').click()
     print("Finalizado lançamento.")
-    sleep(8)
+    sleep(20)
 
     abas = navegador.window_handles
 
@@ -1210,13 +1222,13 @@ def lancamento_entrada():
         print(f"Índice da janela: {indice}")
         if indice > 0:
             navegador.close()
-    sleep(2)
+    sleep(5)
     abas = navegador.window_handles
     if len(abas) > 0:
         navegador.switch_to.window(abas[0])
     #    navegador.get("https://felipe.testes.smart.sgisistemas.com.br/home")
 
-    sleep(5)
+    sleep(10)
     navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/div[1]/div/div/div[1]/div[2]/form/div/div[2]/div[2]/table/tbody/tr/td[1]/label').click()
     sleep(3)
     navegador.find_element(By.XPATH, '//*[@id="tipo_custo"]').click()
@@ -1291,7 +1303,7 @@ def pedido_compra():
     print("Informei observação de teste.")
     sleep(2)
     navegador.find_element(By.XPATH, '//*[@id="botao_salvar"]').click()
-    sleep(5)
+    sleep(15)
 
 
     b_element = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[1]/div/b')
@@ -1310,7 +1322,7 @@ def venda_com_encomenda(numero_cliente, numero_produto):
 
     try:
         global nr_lcto
-        print('########## TELA PEDIDO DE VENDA ##########')
+        print('########## TELA PEDIDO DE VENDA (Venda Com Encomenda) ##########')
         navegador.get("https://felipe.testes.smart.sgisistemas.com.br/vendas")
 
 
@@ -1333,17 +1345,17 @@ def venda_com_encomenda(numero_cliente, numero_produto):
         pyautogui.hotkey('ENTER')
 
         # Preencher o campo "Quantidade"
-        sleep(3)
+        sleep(5)
         nome_element = navegador.find_element(By.ID, 'quantidade_local_estocagem_por_filial')
-        sleep(2)
+        sleep(5)
         nome_element.send_keys('1')
         print('### Passei quantidade.')
         pyautogui.hotkey('ENTER')
         
         # Marcar encomenda
-        sleep(3)
-        nome_element = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/div[2]/div[2]/form/div[16]/div/div[2]/div/div/div[1]/div[1]/table/tbody/tr/td[13]/label')
-        sleep(1)
+        sleep(5)
+        nome_element = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/div[2]/div[2]/form/div[17]/div/div[2]/div/div/div[1]/div[1]/table/tbody/tr/td[13]/label')
+        sleep(5)
         nome_element.click()
         print("Marquei a encomenda do produto.")
 
@@ -1352,7 +1364,7 @@ def venda_com_encomenda(numero_cliente, numero_produto):
         # Preencher o campo "Forma de Pagamento"
         nome_element = navegador.find_element(By.ID, 'forma_pagamento_id_0')
         nome_element.send_keys('Dinheiro')
-        sleep(3)
+        sleep(5)
         pyautogui.hotkey('ENTER')
         print('### Passei forma de pagamento Dinheiro')
 
@@ -1360,12 +1372,12 @@ def venda_com_encomenda(numero_cliente, numero_produto):
         # Clicar no botão "Salvar"
         navegador.find_element(By.XPATH, '//*[@id="botao_salvar"]').click()
         #sleep(10)
-        print("Aguarda 10 segundos para liberação")
-        for segundo_atual in range(10, 0, -1):
+        print("Aguarda 15 segundos para liberação")
+        for segundo_atual in range(15, 0, -1):
             print(f"Tempo restante: {segundo_atual} segundos")
             sleep(1)
 
-        sleep(5)
+        sleep(20)
         # Obter número do lançamento
         b_element = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[1]/div/b')
         b_text = b_element.text
@@ -1385,6 +1397,10 @@ def venda_com_encomenda(numero_cliente, numero_produto):
 
 
 def encomenda_de_produto():
+    if nr_lcto == 0:
+        print("Sem número de lançamento. Encerrando a função encomenda_de_produtos.")
+        return 
+    
     try:
         print("########## TELA ENCOMENDA DE PRODUTOS ##########")
         print("Recebido da função venda com encomenda o lançamento: ", nr_lcto)
@@ -1911,7 +1927,7 @@ def simulacao_venda():
 
         btn_gerar = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/div[1]/div/form/div[10]/input')
         btn_gerar.click()
-        sleep(6)
+        sleep(15)
         b_element = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[1]/div/b')
         b_text = b_element.text
         msg_confirmacao = b_text[41:48]
@@ -1927,6 +1943,322 @@ def simulacao_venda():
 
     finally:
         print("Encerrando tela simulação de venda.")
+
+def cadastro_grupo_receita_despesa():
+   
+    try:
+       data_atual = datetime.datetime.now().strftime('%Y-%m-%d')
+       desc_grupo_hist_rec_desp = 'Grupo Historico Receita/Despesa Automatizado'
+       desc_grupo_hist_rec_desp_data = f"{desc_grupo_hist_rec_desp} - {data_atual}"
+       
+       navegador.get('https://felipe.testes.smart.sgisistemas.com.br/grupos_historicos_rd')
+       print("######### TELA GRUPOS DE HISTÓRICOS DE RECEITAS E DESPESAS #########")
+
+       btn_adicionar = WebDriverWait(navegador, 10).until(
+            EC.visibility_of_element_located((By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/div/div[1]/a'))
+        )
+       btn_adicionar.click()
+       sleep(5)
+       descricao = WebDriverWait(navegador, 10).until(
+          EC.visibility_of_element_located((By.XPATH, '//*[@id="descricao"]'))
+       )
+       descricao.send_keys(desc_grupo_hist_rec_desp_data)
+       sleep(0.5)
+       navegador.find_element(By.XPATH,'/html/body/div[4]/div[1]/div[2]/div[2]/form/div[2]/div/input[1]').click()
+       sleep(3)
+       b_element = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[1]/div/b')
+       b_text = b_element.text
+       msg_confirmacao = b_text[0:32]
+       print('#### Mensagem confirmação: ', msg_confirmacao)
+       sleep(8)
+
+       if msg_confirmacao == 'Adicionado com Sucesso!':
+         print("### Tela cadastro Grupos de Históricos de Receita e Despesas Ok.")
+       else:
+         print(">>>>>>>>>>>>>> Erro na tela! Verificar.")
+
+       print('### INICIANDO EXCLUSÃO ###')
+
+       filtro = navegador.find_element(By.XPATH, '//*[@id="descricao_ilike"]')
+       filtro.send_keys(desc_grupo_hist_rec_desp_data)
+
+       navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/div/form/div/div[2]/div[2]/div/div[4]/div/button[1]/span').click()
+       sleep(2)
+       navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/div/div[2]/div[1]/table/tbody/tr/td/a').click()
+       sleep(2)
+       btn_exclusao = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/form/div[2]/div/a[2]')
+       btn_exclusao.click()
+       sleep(2)
+       btn_confirma = navegador.find_element(By.XPATH, '/html/body/div[8]/div/div/div[2]/button[2]')
+       btn_confirma.click()
+
+       sleep(3)
+
+       b_element = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[1]/div/b')
+       b_text = b_element.text
+       msg_confirmacao = b_text[0:25]
+       print('#### Mensagem confirmação: ', msg_confirmacao)
+       sleep(8)
+
+       if msg_confirmacao == 'Excluído com Sucesso!':
+         print("### Tela cadastro Grupos de Históricos de Receita e Despesas Ok.")
+       else:
+         print(">>>>>>>>>>>>>> Erro na tela! Verificar.")
+
+
+       print('### INICIANDO SEGUNDA INCLUSÃO ###')
+
+
+       btn_adicionar = WebDriverWait(navegador, 10).until(
+            EC.visibility_of_element_located((By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/div/div[1]/a'))
+        )
+       btn_adicionar.click()
+       sleep(5)
+       descricao = WebDriverWait(navegador, 10).until(
+          EC.visibility_of_element_located((By.XPATH, '//*[@id="descricao"]'))
+       )
+       descricao.send_keys(desc_grupo_hist_rec_desp_data)
+       sleep(0.5)
+       navegador.find_element(By.XPATH,'/html/body/div[4]/div[1]/div[2]/div[2]/form/div[2]/div/input[1]').click()
+       sleep(3)
+       b_element = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[1]/div/b')
+       b_text = b_element.text
+       msg_confirmacao = b_text[0:32]
+       print('#### Mensagem confirmação: ', msg_confirmacao)
+       sleep(8)
+
+       if msg_confirmacao == 'Adicionado com Sucesso!':
+         print("### Tela cadastro Grupos de Históricos de Receita e Despesas Ok.")
+       else:
+         print(">>>>>>>>>>>>>> Erro na tela! Verificar.")
+
+
+
+
+    finally:
+       print("Encerrado função cadastro_grupo_receita_despesa.")
+
+def cadastro_subgrupo_historico_receita_despesa():
+    try:
+       data_atual = datetime.datetime.now().strftime('%Y-%m-%d')
+       desc_subgrupo_hist_rec_desp = 'SUBGrupo Historico Receita/Despesa Automatizado'
+       desc_subgrupo_hist_rec_desp_data = f"{desc_subgrupo_hist_rec_desp} - {data_atual}"
+       
+       navegador.get('https://felipe.testes.smart.sgisistemas.com.br/subgrupos_historicos_rd')
+       print("######### TELA SUBGRUPOS DE HISTÓRICOS DE RECEITAS E DESPESAS #########")
+
+       btn_adicionar = WebDriverWait(navegador, 10).until(
+            EC.visibility_of_element_located((By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/div/div[1]/a'))
+        )
+       btn_adicionar.click()
+       sleep(5)
+
+       descricao = WebDriverWait(navegador, 10).until(
+          EC.visibility_of_element_located((By.XPATH, '//*[@id="descricao"]'))
+       )
+       descricao.send_keys(desc_subgrupo_hist_rec_desp_data)
+       sleep(2)
+       
+       grupo_hist_rec_desp = navegador.find_element(By.XPATH, '//*[@id="autocompletar_grupo_historico_rd_id"]')
+       grupo_hist_rec_desp.click()
+       sleep(2)
+       grupo_hist_rec_desp.send_keys(data_atual)
+       sleep(2)
+       pyautogui.hotkey('down')
+       pyautogui.hotkey('tab')
+       sleep(0.5)
+
+       navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/form/div[3]/div/input[1]').click()
+
+       sleep(3)
+
+       b_element = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[1]/div/b')
+       b_text = b_element.text
+       msg_confirmacao = b_text[0:32]
+       print('#### Mensagem confirmação: ', msg_confirmacao)
+       sleep(3)
+
+       if msg_confirmacao == 'Adicionado com Sucesso!':
+         print("### Tela cadastro SUBGrupos de Históricos de Receita e Despesas Ok.")
+       else:
+         print(">>>>>>>>>>>>>> Erro na tela! Verificar.")
+
+       
+       print("### INICIANDO EXCLUSÃO ###")
+
+       filtro = navegador.find_element(By.XPATH, '//*[@id="descricao_ilike"]')
+       filtro.send_keys(desc_subgrupo_hist_rec_desp_data)
+
+       navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/div/form/div/div[2]/div[2]/div/div[4]/div/button[1]').click()
+
+       navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/div/div[2]/div[2]/table/tbody/tr/td[1]/a').click()
+       sleep(2)
+       navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/form/div[3]/div/a[2]').click()
+       sleep(2)
+       navegador.find_element(By.XPATH, '/html/body/div[8]/div/div/div[2]/button[2]').click()
+       sleep(2)
+
+       b_element = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[1]/div/b')
+       b_text = b_element.text
+       msg_confirmacao = b_text[0:25]
+       print('#### Mensagem confirmação: ', msg_confirmacao)
+       sleep(8)
+
+       if msg_confirmacao == 'Excluído com Sucesso!':
+         print("### Tela cadastro Grupos de Históricos de Receita e Despesas Ok.")
+       else:
+         print(">>>>>>>>>>>>>> Erro na tela! Verificar.")
+
+
+       print("### INICIANDO SEGUNDA INCLUSÃO ###")
+       
+       btn_adicionar = WebDriverWait(navegador, 10).until(
+            EC.visibility_of_element_located((By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/div/div[1]/a'))
+        )
+       btn_adicionar.click()
+       sleep(5)
+
+       descricao = WebDriverWait(navegador, 10).until(
+          EC.visibility_of_element_located((By.XPATH, '//*[@id="descricao"]'))
+       )
+       descricao.send_keys(desc_subgrupo_hist_rec_desp_data)
+       sleep(2)
+       
+       grupo_hist_rec_desp = navegador.find_element(By.XPATH, '//*[@id="autocompletar_grupo_historico_rd_id"]')
+       grupo_hist_rec_desp.click()
+       sleep(2)
+       grupo_hist_rec_desp.send_keys(data_atual)
+       sleep(2)
+       pyautogui.hotkey('down')
+       pyautogui.hotkey('tab')
+       sleep(0.5)
+
+       navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/form/div[3]/div/input[1]').click()
+
+       sleep(3)
+
+       b_element = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[1]/div/b')
+       b_text = b_element.text
+       msg_confirmacao = b_text[0:32]
+       print('#### Mensagem confirmação: ', msg_confirmacao)
+       sleep(3)
+
+       if msg_confirmacao == 'Adicionado com Sucesso!':
+         print("### Tela cadastro SUBGrupos de Históricos de Receita e Despesas Ok.")
+       else:
+         print(">>>>>>>>>>>>>> Erro na tela! Verificar.")
+
+    finally:
+        print("Encerrando execução função cadastro_subgrupo_historico_receita_despesa ")
+
+
+def cadastro_historico_receita_despesa():
+    try:
+       data_atual = datetime.datetime.now().strftime('%Y-%m-%d')
+       desc_hist_rec_desp = 'Historico Receita/Despesa Automatizado'
+       desc_hist_rec_desp_data = f"{desc_hist_rec_desp} - {data_atual}"
+
+       navegador.get('https://felipe.testes.smart.sgisistemas.com.br/historicos_receitas_despesas')
+       print("######### TELA  HISTÓRICOS DE RECEITAS E DESPESAS #########")
+
+       btn_adicionar = WebDriverWait(navegador, 10).until(
+            EC.visibility_of_element_located((By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/div/div[1]/a'))
+        )
+       btn_adicionar.click()
+       sleep(5)
+
+       descricao = WebDriverWait(navegador, 10).until(
+          EC.visibility_of_element_located((By.XPATH, '//*[@id="descricao"]'))
+       )
+       descricao.send_keys(desc_hist_rec_desp_data)
+       sleep(2)
+
+       subgrupo = navegador.find_element(By.XPATH, '//*[@id="autocompletar_subgrupo_historico_rd_id"]')
+       subgrupo.send_keys(data_atual)
+       sleep(2)
+       pyautogui.hotkey('down')
+       pyautogui.hotkey('tab')
+       sleep(5)
+       bt_salvar = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/form/div[9]/div/input[1]')
+       sleep(2)
+       bt_salvar.click()
+       sleep(5)
+
+       b_element = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[1]/div/b')
+       b_text = b_element.text
+       msg_confirmacao = b_text[0:32]
+       print('#### Mensagem confirmação: ', msg_confirmacao)
+       sleep(3)
+
+       if msg_confirmacao == 'Adicionado com Sucesso!':
+         print("### Tela cadastro Históricos de Receita e Despesas Ok.")
+       else:
+         print(">>>>>>>>>>>>>> Erro na tela! Verificar.")
+
+
+       print("### INICIANDO EXCLUSÃO ###")
+       
+       filtro = navegador.find_element(By.XPATH, '//*[@id="descricao_ilike"]')
+       filtro.send_keys(desc_hist_rec_desp_data)
+
+       navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/div/form/div/div[2]/div[2]/div/div[4]/div/button[1]').click()
+       sleep(2)
+       navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/div/div[2]/div[2]/table/tbody/tr/td[1]/a').click()
+       sleep(2)
+       navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/form/div[9]/div/a[2]').click()
+       sleep(2)
+       navegador.find_element(By.XPATH, '/html/body/div[8]/div/div/div[2]/button[2]').click()
+       sleep(2)
+
+       b_element = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[1]/div/b')
+       b_text = b_element.text
+       msg_confirmacao = b_text[0:25]
+       print('#### Mensagem confirmação: ', msg_confirmacao)
+       sleep(8)
+
+       if msg_confirmacao == 'Excluído com Sucesso!':
+         print("### Tela Históricos de Receita e Despesas Ok.")
+       else:
+         print(">>>>>>>>>>>>>> Erro na tela! Verificar.")
+
+       print("### INICIANDO SEGUNDA INCLUSÃO ###")
+
+       btn_adicionar = WebDriverWait(navegador, 10).until(
+            EC.visibility_of_element_located((By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/div/div[1]/a'))
+        )
+       btn_adicionar.click()
+       sleep(5)
+
+       descricao = WebDriverWait(navegador, 10).until(
+          EC.visibility_of_element_located((By.XPATH, '//*[@id="descricao"]'))
+       )
+       descricao.send_keys(desc_hist_rec_desp_data)
+       sleep(2)
+
+       subgrupo = navegador.find_element(By.XPATH, '//*[@id="autocompletar_subgrupo_historico_rd_id"]')
+       subgrupo.send_keys(data_atual)
+       sleep(2)
+       pyautogui.hotkey('down')
+       pyautogui.hotkey('tab')
+       sleep(3)
+       navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/form/div[9]/div/input[1]').click()
+
+       sleep(3)
+
+       b_element = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[1]/div/b')
+       b_text = b_element.text
+       msg_confirmacao = b_text[0:32]
+       print('#### Mensagem confirmação: ', msg_confirmacao)
+       sleep(3)
+
+       if msg_confirmacao == 'Adicionado com Sucesso!':
+         print("### Tela cadastro Históricos de Receita e Despesas Ok.")
+       else:
+         print(">>>>>>>>>>>>>> Erro na tela! Verificar.")
+
+    finally:
+        print("Encerrando execução função cadastro_historico_receita_despesa.")
+
 
 
  
@@ -1989,6 +2321,9 @@ print("cadastro_de_produto")
 print("conta_caixa_por_usuario")
 print("cadastro_conta_corrente")
 print("simulacao_venda")
+print("cadastro_grupo_receita_despesa")
+print("cadastro_subgrupo_historico_receita_despesa")
+print("cadastro_historico_receita_despesa")
 
 
 
@@ -2050,7 +2385,9 @@ encomenda_de_produto()
 conta_caixa_por_usuario()
 conta_corrente()
 simulacao_venda()
-
+cadastro_grupo_receita_despesa()
+cadastro_subgrupo_historico_receita_despesa()
+cadastro_historico_receita_despesa()
 
 print('#######################################################################')
 print('#                LIBERADO USO MOUSE E TECLADO                         #')
@@ -4177,43 +4514,43 @@ else:
 cont = cont +1
 
 
-navegador.get("https://felipe.testes.smart.sgisistemas.com.br/historicos_receitas_despesas")
-print('### Acessei Histórico de Receita e Despesa')
-tela = tela + 1
-print('Tela: ', tela)
-error_message = navegador.find_elements(By.NAME,"filtros[descricao_ilike]")
-if error_message:
-    print("A página foi aberta")
-else:
-    erro = erro+1
-    print(" >>>>>>>>>>>>>>>>>>>>>>>>>  A PÁGINA CONTÉM ERRO")
-cont = cont +1
+# navegador.get("https://felipe.testes.smart.sgisistemas.com.br/historicos_receitas_despesas")
+# print('### Acessei Histórico de Receita e Despesa')
+# tela = tela + 1
+# print('Tela: ', tela)
+# error_message = navegador.find_elements(By.NAME,"filtros[descricao_ilike]")
+# if error_message:
+#     print("A página foi aberta")
+# else:
+#     erro = erro+1
+#     print(" >>>>>>>>>>>>>>>>>>>>>>>>>  A PÁGINA CONTÉM ERRO")
+# cont = cont +1
 
 
-navegador.get("https://felipe.testes.smart.sgisistemas.com.br/subgrupos_historicos_rd")
-print('### Acessei Subgrupos de Históricos de Receitas e Despesas')
-tela = tela + 1
-print('Tela: ', tela)
-error_message = navegador.find_elements(By.NAME,"filtros[descricao_ilike]")
-if error_message:
-    print("A página foi aberta")
-else:
-    erro = erro+1
-    print(" >>>>>>>>>>>>>>>>>>>>>>>>>  A PÁGINA CONTÉM ERRO")
-cont = cont +1
+# navegador.get("https://felipe.testes.smart.sgisistemas.com.br/subgrupos_historicos_rd")
+# print('### Acessei Subgrupos de Históricos de Receitas e Despesas')
+# tela = tela + 1
+# print('Tela: ', tela)
+# error_message = navegador.find_elements(By.NAME,"filtros[descricao_ilike]")
+# if error_message:
+#     print("A página foi aberta")
+# else:
+#     erro = erro+1
+#     print(" >>>>>>>>>>>>>>>>>>>>>>>>>  A PÁGINA CONTÉM ERRO")
+# cont = cont +1
 
 
-navegador.get("https://felipe.testes.smart.sgisistemas.com.br/grupos_historicos_rd")
-print('### Acessei Grupos de Históricos de Receitas e Despesas')
-tela = tela + 1
-print('Tela: ', tela)
-error_message = navegador.find_elements(By.NAME,"filtros[descricao_ilike]")
-if error_message:
-    print("A página foi aberta")
-else:
-    erro = erro+1
-    print(" >>>>>>>>>>>>>>>>>>>>>>>>>  A PÁGINA CONTÉM ERRO")
-cont = cont +1
+# navegador.get("https://felipe.testes.smart.sgisistemas.com.br/grupos_historicos_rd")
+# print('### Acessei Grupos de Históricos de Receitas e Despesas')
+# tela = tela + 1
+# print('Tela: ', tela)
+# error_message = navegador.find_elements(By.NAME,"filtros[descricao_ilike]")
+# if error_message:
+#     print("A página foi aberta")
+# else:
+#     erro = erro+1
+#     print(" >>>>>>>>>>>>>>>>>>>>>>>>>  A PÁGINA CONTÉM ERRO")
+# cont = cont +1
 
 
 # navegador.get("https://felipe.testes.smart.sgisistemas.com.br/contas_caixas_usuarios")
@@ -7302,8 +7639,11 @@ cont = cont +1
 
 hora_fim = datetime.datetime.now()
 tempo_total = (hora_fim - hora_inicio)
+if nr_lcto == 0:
+    print("-------------------------------------")
+    print("Verificar as seguintes funções: ", '\n' "cadastrar_venda", '\n' "recebimentos", '\n' "gestao_entrega", '\n' "devolucao_venda", '\n' "encomenda_de_produtos")
 print("-------------------------------------")
-print("Robô iniciado em ", hora_inicio,'\n' "Robô finalizado em ", hora_fim, '\n' "Tempo de execução", tempo_total, '\n' "Quantidade de telas verificadas", cont, '\n' "Telas com erro", erro )
+print("Robô iniciado em ", hora_inicio,'\n' "Robô finalizado em ", hora_fim, '\n' "Tempo de execução", tempo_total, '\n' "Quantidade de telas verificadas", cont, '\n' "Telas com erro", erro, '\n' "Número do lançamento gerado:", nr_lcto )
 
 #input("Pressione Enter para continuar...")
 
@@ -7322,46 +7662,92 @@ msg['From'] = email_remetente
 msg['To'] = ', '.join(email_destinatarios)  # Transforma a lista em uma string separada por vírgulas
 msg['Subject'] = 'ENVIO AUTOMÁTICO - Verificação deploy - Felipe Rossi'
 
-# Corpo do email com as variáveis
-corpo_email = f"""\
-**********************************************
-DEPLOY/28-03-2024
-Robô iniciado em {hora_inicio}
-Robô finalizado em {hora_fim}
-Tempo de execução: {tempo_total}
-Quantidade de telas verificadas: {cont}
-Telas com erro: {erro}
-Funções executadas
-cadastrar_venda(venda parcelada com entrega)
-analise_credito()
-faturamento_de_venda()
-gestao_entrega()
-cadastrar_pessoa()
-cadastro_e_alteracao_de_escolaridade()
-cadastro_e_alteracao_de_tipo_dependente()
-configuracoes_mva_antecipacoes()
-configuracao_tipo_servico()
-adicionar_especificacao_produto()
-configuracoes_tipos_montagens_produtos()
-gera_titulo()
-funcao_gera_sped_fiscal()
-funcao_gera_sped_contribuicao()
-funcao_gera_cobranca()
-devolucao_venda()
-pedido_compra()
-lancamento_entrada()
-venda_com_encomenda(avista com encomenda)
-faturamento_de_venda()
-encomenda_de_produto()
-cadastro_departamento()
-cadastro_grupo()
-cadastro_subgrupo()
-cadastro_produto()
-caixaconta_por_usuario()
-conta_corrente()
-simulacao_venda()
 
+
+if nr_lcto == 0:
+    corpo_email = f"""\
+    print("-------------------------------------")
+    print("Verificar as seguintes funções: ", '\n' "cadastrar_venda", '\n' "recebimentos", '\n' "gestao_entrega", '\n' "devolucao_venda", '\n' "encomenda_de_produtos")
+    **********************************************
+    Robô iniciado em {hora_inicio}
+    Robô finalizado em {hora_fim}
+    Tempo de execução: {tempo_total}
+    Quantidade de telas verificadas: {cont}
+    Telas com erro: {erro}
+    Funções executadas
+    cadastrar_venda(venda parcelada com entrega)
+    analise_credito()
+    faturamento_de_venda()
+    gestao_entrega()
+    cadastrar_pessoa()
+    cadastro_e_alteracao_de_escolaridade()
+    cadastro_e_alteracao_de_tipo_dependente()
+    configuracoes_mva_antecipacoes()
+    configuracao_tipo_servico()
+    adicionar_especificacao_produto()
+    configuracoes_tipos_montagens_produtos()
+    gera_titulo()
+    funcao_gera_sped_fiscal()
+    funcao_gera_sped_contribuicao()
+    funcao_gera_cobranca()
+    devolucao_venda()
+    pedido_compra()
+    lancamento_entrada()
+    venda_com_encomenda(avista com encomenda)
+    faturamento_de_venda()
+    encomenda_de_produto()
+    cadastro_departamento()
+    cadastro_grupo()
+    cadastro_subgrupo()
+    cadastro_produto()
+    caixaconta_por_usuario()
+    conta_corrente()
+    simulacao_venda()
+    cadastro_grupo_receita_despesa()
+    cadastro_subgrupo_historico_receita_despesa()
+    cadastro_historico_receita_despesa()
 """
+else:
+    corpo_email = f"""\
+    **********************************************
+    Robô iniciado em {hora_inicio}
+    Robô finalizado em {hora_fim}
+    Tempo de execução: {tempo_total}
+    Quantidade de telas verificadas: {cont}
+    Telas com erro: {erro}
+    Funções executadas
+    cadastrar_venda(venda parcelada com entrega)
+    analise_credito()
+    faturamento_de_venda()
+    gestao_entrega()
+    cadastrar_pessoa()
+    cadastro_e_alteracao_de_escolaridade()
+    cadastro_e_alteracao_de_tipo_dependente()
+    configuracoes_mva_antecipacoes()
+    configuracao_tipo_servico()
+    adicionar_especificacao_produto()
+    configuracoes_tipos_montagens_produtos()
+    gera_titulo()
+    funcao_gera_sped_fiscal()
+    funcao_gera_sped_contribuicao()
+    funcao_gera_cobranca()
+    devolucao_venda()
+    pedido_compra()
+    lancamento_entrada()
+    venda_com_encomenda(avista com encomenda)
+    faturamento_de_venda()
+    encomenda_de_produto()
+    cadastro_departamento()
+    cadastro_grupo()
+    cadastro_subgrupo()
+    cadastro_produto()
+    caixaconta_por_usuario()
+    conta_corrente()
+    simulacao_venda()
+    cadastro_grupo_receita_despesa()
+    cadastro_subgrupo_historico_receita_despesa()
+    cadastro_historico_receita_despesa()
+"""    
 msg.attach(MIMEText(corpo_email, 'plain'))
 
 # Configurações do servidor SMTP

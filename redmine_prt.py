@@ -111,7 +111,7 @@ else:
 
 # Configurações do email
 email_remetente = 'felipe.rossi@sgisistemas.com.br'
-email_destinatarios = ['feliperossihav@icloud.com', 'sgi.felipe@gmail.com']  # Lista de destinatários
+email_destinatarios = ['feliperossihav@icloud.com', 'sgi.felipe@gmail.com'] 
 senha_remetente = '3971175Sgi!'  # Senha do remetente
 
 # Construindo o email
@@ -123,12 +123,12 @@ msg['Subject'] = 'ENVIO AUTOMÁTICO - Relatório de tarefas com data de atualiza
 if soma_tempo_gasto >0: 
     # Corpo do email com as variáveis
     corpo_email = f"""\
-    RELATÓRIO DE TAREFAS ATUALIZADAS NO PERÍODO DE ABRIL/2024
+    RELATÓRIO DE TAREFAS ATUALIZADAS NO PERÍODO DE {dataIni} ATÉ {dataFim}
     \n\n{tmp_total}
     Meta de horas para o período: , {metaPeriodo}
     A soma das horas da coluna 'Tempo gasto geral' é:, {soma_tempo_gasto}
     Diferença da meta para o realizado é: , {diferenca}
-    \nQuantidade de tarefas por 'Tipo':
+    Quantidade de tarefas por
     {quantidade_tipo}
     \nQuantidade tarefas por 'Situação':
     {quantidade_situacao}

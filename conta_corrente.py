@@ -23,7 +23,7 @@ def conta_corrente():
 
     try:
         navegador.get('https://felipe.testes.smart.sgisistemas.com.br/contas_correntes')
-        print("######### CONTA CAIXA POR USUÁRIO ##########")
+        print("######### CADASTRO DE CONTA CORRENTE ##########")
         
 
         btn_adicionar = WebDriverWait(navegador, 10).until(
