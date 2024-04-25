@@ -16,8 +16,8 @@ import pyautogui
 redmine = 'https://redmine.sgisistemas.com.br/login'
 
 
-userRedmine = input("Informe seu usuário: ")
-passwordRedmine = getpass.getpass("Informe sua senha: ")
+#userRedmine = input("Informe seu usuário: ")
+#passwordRedmine = getpass.getpass("Informe sua senha: ")
 data_Inicial = input("Por favor, insira a data inicial do período de atualização no formato 'DD/MM/AAAA': ")
 dtIni = datetime.strptime(data_Inicial, '%d/%m/%Y')
 data_Final = input("Por favor, insira a data final do pe´riodo de atualização no formato 'DD/MM/AAAA': ")
@@ -68,7 +68,7 @@ sleep(2)
 
 consulta = navegador.find_element(By.XPATH, '/html/body/div/div[2]/div[1]/div[3]/div[1]/ul[3]/li[4]/a')
 consulta.click()
-
+input("enter")
 csv = navegador.find_element(By.XPATH, '/html/body/div/div[2]/div[1]/div[3]/div[2]/p/span[2]/a')
 csv.click()
 
@@ -120,24 +120,27 @@ msg['From'] = email_remetente
 msg['To'] = ', '.join(email_destinatarios)  # Transforma a lista em uma string separada por vírgulas
 msg['Subject'] = 'ENVIO AUTOMÁTICO - Relatório de tarefas com data de atualização - Felipe Rossi'
 
-if soma_tempo_gasto >0: 
+if soma_tempo_gasto > 0: 
     # Corpo do email com as variáveis
     corpo_email = f"""\
-    RELATÓRIO DE TAREFAS ATUALIZADAS NO PERÍODO DE {dataIni} ATÉ {dataFim}
-    \n\n{tmp_total}
-    Meta de horas para o período: , {metaPeriodo}
-    A soma das horas da coluna 'Tempo gasto geral' é:, {soma_tempo_gasto}
-    Diferença da meta para o realizado é: , {diferenca}
-    Quantidade de tarefas por
-    {quantidade_tipo}
-    \nQuantidade tarefas por 'Situação':
-    {quantidade_situacao}
-    """
+RELATÓRIO DE TAREFAS ATUALIZADAS NO PERÍODO DE {dataIni} ATÉ {dataFim}
+
+{tmp_total}
+
+Meta de horas para o período: {metaPeriodo}
+A soma das horas da coluna 'Tempo gasto geral' é: {soma_tempo_gasto}
+Diferença da meta para o realizado é: {diferenca}
+
+Quantidade de tarefas por {quantidade_tipo}
+
+Quantidade tarefas por 'Situação':
+{quantidade_situacao}
+"""
 else:
     corpo_email = f"""
-    Não temos tarefas atualizadas no período.
-    A meta do período é: {metaPeriodo}
-    """
+Não temos tarefas atualizadas no período.
+A meta do período é: {metaPeriodo}
+"""
 
 msg.attach(MIMEText(corpo_email, 'plain'))
 

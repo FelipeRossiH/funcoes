@@ -717,7 +717,7 @@ def faturamento_de_venda():
       sleep(10)
       nome_element = navegador.find_element(By.XPATH, '/html/body/div[4]/div/div[2]/div[2]/form/button').click()
       print('Finalizado Lançamento')
-      sleep(20)
+      sleep(30)
 
       abas = navegador.window_handles
 
@@ -1318,6 +1318,7 @@ def pedido_compra():
         print(">>>>>>>>>>>>>> Erro na tela! Verificar.")
 
 
+from selenium.common.exceptions import NoSuchElementException
 def venda_com_encomenda(numero_cliente, numero_produto):
 
     try:
@@ -1351,11 +1352,16 @@ def venda_com_encomenda(numero_cliente, numero_produto):
         nome_element.send_keys('1')
         print('### Passei quantidade.')
         pyautogui.hotkey('ENTER')
+        pyautogui.hotkey('tab')
+        pyautogui.hotkey('tab')
+        pyautogui.hotkey('tab')
         
         # Marcar encomenda
+        print("Buscar flag entrega")
         sleep(5)
-        nome_element = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/div[2]/div[2]/form/div[17]/div/div[2]/div/div/div[1]/div[1]/table/tbody/tr/td[13]/label')
+        nome_element = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/div[2]/div[2]/form/div[16]/div/div[2]/div/div/div[1]/div[1]/table/tbody/tr/td[13]/label')
         sleep(5)
+        print("Encontrado campo marcação de entrega")
         nome_element.click()
         print("Marquei a encomenda do produto.")
 
@@ -1372,8 +1378,8 @@ def venda_com_encomenda(numero_cliente, numero_produto):
         # Clicar no botão "Salvar"
         navegador.find_element(By.XPATH, '//*[@id="botao_salvar"]').click()
         #sleep(10)
-        print("Aguarda 15 segundos para liberação")
-        for segundo_atual in range(15, 0, -1):
+        print("Aguarda 20 segundos para liberação")
+        for segundo_atual in range(20, 0, -1):
             print(f"Tempo restante: {segundo_atual} segundos")
             sleep(1)
 
@@ -1395,7 +1401,6 @@ def venda_com_encomenda(numero_cliente, numero_produto):
         print("Encerrado função funcao_cadastrar_venda")
         #navegador.quit()
 
-
 def encomenda_de_produto():
     if nr_lcto == 0:
         print("Sem número de lançamento. Encerrando a função encomenda_de_produtos.")
@@ -1408,26 +1413,27 @@ def encomenda_de_produto():
         sleep(2)
 
         nr_lancamento = navegador.find_element(By.XPATH, '//*[@id="documentos.numero_lancamento"]')
-        sleep(1)
+        sleep(5)
         nr_lancamento.send_keys(nr_lcto)
+        sleep(5)
         pyautogui.hotkey('Enter')
-        sleep(1)
+        sleep(5)
         checkbox = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/div/div[3]/div[1]/table/tbody/tr/td[1]/div/label')
-        sleep(1)
+        sleep(5)
         checkbox.click()
-        sleep(1)
+        sleep(5)
 
         gerar_pedido_compra = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/div/div[4]/button')
-        sleep(1)
+        sleep(5)
         gerar_pedido_compra.click()
 
-        sleep(12)
+        sleep(20)
 
         b_element = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[1]/div/b')
         b_text = b_element.text
         msg_confirmacao = b_text[0:99]
         print('#### Mensagem confirmação: ', msg_confirmacao)
-        sleep(1)
+        sleep(3)
 
         if msg_confirmacao == 'Gerado com sucesso!':
             print("### Encomenda gravada com sucesso.")
@@ -1927,7 +1933,7 @@ def simulacao_venda():
 
         btn_gerar = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/div[1]/div/form/div[10]/input')
         btn_gerar.click()
-        sleep(15)
+        sleep(25)
         b_element = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[1]/div/b')
         b_text = b_element.text
         msg_confirmacao = b_text[41:48]

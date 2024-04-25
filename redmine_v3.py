@@ -41,9 +41,9 @@ navegador.find_element(By.XPATH, '//*[@id="login-submit"]').click()
 sleep(2)
 
 navegador.find_element(By.XPATH, '/html/body/div/div[2]/div[1]/div[1]/ul/li[1]/a').click()
-
+sleep(3)
 navegador.find_element(By.XPATH, '//*[@id="cb_status_id"]').click()
-
+sleep(3)
 # navegador.find_element(By.XPATH, '//*[@id="add_filter_select"]').click()
 # for i in range(38):
 #     pyautogui.press('down')
@@ -66,19 +66,20 @@ navegador.find_element(By.XPATH, '//*[@id="cb_status_id"]').click()
 # dataFim.send_keys(dtFim.strftime('%Y-%m-%d'))
 # sleep(2)
 
-consulta = navegador.find_element(By.XPATH, '/html/body/div/div[2]/div[1]/div[3]/div[1]/ul[3]/li[4]/a')
+consulta = navegador.find_element(By.XPATH, '/html/body/div/div[2]/div[1]/div[3]/div[1]/ul[3]/li[5]/a')
 consulta.click()
-
+sleep(3)
 csv = navegador.find_element(By.XPATH, '/html/body/div/div[2]/div[1]/div[3]/div[2]/p/span[2]/a')
 csv.click()
-
+sleep(3)
 export = navegador.find_element(By.XPATH, '/html/body/div[2]/div[2]/form/p[4]/input')
 export.click()
+sleep(3)
 # print("Aguarda 5 segundos para download")
 # for segundo_atual in range(5, 0, -1):
 #     print(f"Tempo restante: {segundo_atual} segundos")
 #     sleep(1)
-
+sleep(3)
 print("Encerrando navegador...")
 navegador.quit()
 
