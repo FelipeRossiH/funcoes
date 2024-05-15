@@ -68,8 +68,8 @@ def cadastrar_venda(numero_cliente, numero_produto):
         # Clicar no botão "Salvar"
         navegador.find_element(By.XPATH, '//*[@id="botao_salvar"]').click()
         #print("Aguarda 10 segundos para liberação")
-        for segundo_atual in range(10, 0, -1):
-            print(f"Tempo restante: {segundo_atual} segundos")
+        for segundo_atual in range(6, 0, -1):
+            #print(f"Tempo restante: {segundo_atual} segundos")
             sleep(1)
 
         # Preencher campos de liberação
@@ -88,9 +88,9 @@ def cadastrar_venda(numero_cliente, numero_produto):
         print('### Passei senha de liberação')
         pyautogui.hotkey('ENTER')
         
-        print("Aguarda 3 segundos - 2ªvez")
+        #print("Aguarda 3 segundos - 2ªvez")
         for segundo_atual in range(3, 0, -1):
-            print(f"Tempo restante: {segundo_atual} segundos")
+            #print(f"Tempo restante: {segundo_atual} segundos")
             sleep(1)
     
         # Clicar no botão "Salvar" novamente
@@ -108,7 +108,7 @@ def cadastrar_venda(numero_cliente, numero_produto):
                 print('#### Número do lançamento: ', nr_lcto)
                 break
             except NoSuchElementException:
-                print("Aguardando elemento...")
+                #print("Aguardando elemento...")
                 sleep(1)
         hora_fim = datetime.datetime.now()
         print("Tempo Finalizado")

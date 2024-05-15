@@ -119,7 +119,7 @@ else:
 
 # Configurações do email
 email_remetente = 'felipe.rossi@sgisistemas.com.br'
-email_destinatarios = ['feliperossihav@icloud.com', 'sgi.felipe@gmail.com', 'maykel@sgisistemas.com.br'] 
+email_destinatarios = ['feliperossihav@icloud.com', 'sgi.felipe@gmail.com'] 
 senha_remetente = '3971175Sgi!'  # Senha do remetente
 
 # Construindo o email

@@ -23,7 +23,7 @@ redmine = 'https://redmine.sgisistemas.com.br/login'
 #dtFim = datetime.strptime(data_Final, '%d/%m/%Y')
 print("SERÃO FILTRADAS TAREFAS ATUALIZADAS EM ABRIL/2024")
 #metaPeriodo = float(input("Informe a meta de horas para o período informado: "))
-metaPeriodo = 1117
+metaPeriodo = 1144
 navegador = Firefox()
 navegador.maximize_window()
 navegador.get(redmine)
@@ -93,7 +93,7 @@ tmp_total['Tempo gasto geral'] = tmp_total['Tempo gasto geral'].str.replace(',',
 soma_tempo_gasto = tmp_total['Tempo gasto geral'].sum()
 quantidade_tipo = tmp_total['Tipo'].value_counts().to_string()
 quantidade_situacao = tmp_total['Situação'].value_counts().to_string()
-diferenca = metaPeriodo - soma_tempo_gasto
+diferenca = soma_tempo_gasto - metaPeriodo  
 
 
 
@@ -112,27 +112,28 @@ else:
 
 # Configurações do email
 email_remetente = 'felipe.rossi@sgisistemas.com.br'
-email_destinatarios = ['feliperossihav@icloud.com', 'sgi.felipe@gmail.com', 'desenv@sgisistemas.com.br']  # Lista de destinatários
+email_destinatarios = ['desenv@sgisistemas.com.br','feliperossihav@icloud.com', 'sgi.felipe@gmail.com']  # Lista de destinatários
 senha_remetente = '3971175Sgi!'  # Senha do remetente
 
 # Construindo o email
 msg = MIMEMultipart()
 msg['From'] = email_remetente
 msg['To'] = ', '.join(email_destinatarios)  # Transforma a lista em uma string separada por vírgulas
-msg['Subject'] = 'ENVIO AUTOMÁTICO - Relatório de tarefas com data de atualização - Felipe Rossi'
+msg['Subject'] = 'ENVIO AUTOMÁTICO - Relatório de tarefas com data de atualização MAIO/2024 - Felipe Rossi'
 
 if soma_tempo_gasto >0: 
     # Corpo do email com as variáveis
     corpo_email = f"""\
-    RELATÓRIO DE TAREFAS ATUALIZADAS NO PERÍODO DE ABRIL/2024
-    \n\n{tmp_total}
-    Meta de horas para o período: , {metaPeriodo}
+    RELATÓRIO DE TAREFAS ATUALIZADAS NO PERÍODO DE MAIO/2024
+    
+    \n\nMeta de horas para o período: , {metaPeriodo}
     A soma das horas da coluna 'Tempo gasto geral' é:, {soma_tempo_gasto}
     Diferença da meta para o realizado é: , {diferenca}
     \nQuantidade de tarefas por 'Tipo':
     {quantidade_tipo}
     \nQuantidade tarefas por 'Situação':
     {quantidade_situacao}
+    \n\n\n{tmp_total}
     """
 else:
     corpo_email = f"""

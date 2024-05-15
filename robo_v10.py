@@ -587,22 +587,127 @@ def cadastrar_pessoa():
     print('Encerrado função cadastro_pessoa')
 
 
+# from selenium.common.exceptions import NoSuchElementException
+# def cadastrar_venda(numero_cliente, numero_produto):
+#     try:
+#         global nr_lcto
+#         print('#######  ### TELA PEDIDO DE VENDA ##########')
+#         navegador.get("h    ttps://felipe.testes.smart.sgisistemas.com.br/vendas")
+#         10000
+#         # Preencher o campo "Cliente"
+#         nome_element = navegador.find_element(By.ID, 'autocompletar_pessoa_cliente_fornecedor_id')
+#         nome_element.send_keys(numero_cliente)
+#         print('### Passei Cliente', numero_cliente)
+#         sleep(5)
+#         pyautogui.hotkey('down')
+#         pyautogui.hotkey('tab')
+
+#         # Preencher o campo "Produto"
+#         nome_element = navegador.find_element(By.ID, 'coluna_descricao_produto')
+#         sleep(2)
+#         nome_element.send_keys(numero_produto)
+#         print('### Passei produto.')
+#         sleep(2)
+#         pyautogui.hotkey('down')
+#         pyautogui.hotkey('tab')
+#         pyautogui.hotkey('ENTER')
+
+#         # Preencher o campo "Quantidade"
+#         sleep(3)
+#         nome_element = navegador.find_element(By.ID, 'quantidade_local_estocagem_por_filial')
+#         sleep(2)
+#         nome_element.send_keys('1')
+#         print('### Passei quantidade.')
+#         pyautogui.hotkey('ENTER')
+#         sleep(3)
+
+#         # Preencher o campo "Forma de Pagamento"
+#         nome_element = navegador.find_element(By.ID, 'forma_pagamento_id_0')
+#         nome_element.send_keys('V')
+#         sleep(3)
+#         pyautogui.hotkey('ENTER')
+#         print('### Passei forma de pagamento carnê')
+
+#         # Preencher o campo "Quantidade de Parcelas"
+#         sleep(2)
+#         nome_element = navegador.find_element(By.XPATH, '//*[@id="parcela_0"]')
+#         sleep(2)
+#         nome_element.send_keys('0')
+#         sleep(2)
+#         print('### Passei quantidade de parcelas.')
+
+#         # Clicar no botão "Salvar"
+#         navegador.find_element(By.XPATH, '//*[@id="botao_salvar"]').click()
+#         #sleep(10)
+#         print("Aguarda 20 segundos para liberação")
+#         for segundo_atual in range(20, 0, -1):
+#             print(f"Tempo restante: {segundo_atual} segundos")
+#             sleep(1)
+
+#         # Preencher campos de liberação
+#         sleep(2)
+#         navegador.find_element(By.ID, 'login_liberacao_venda').click()
+#         sleep(2)
+#         nome_element = navegador.find_element(By.ID, 'login_liberacao_venda')
+#         sleep(2)
+#         nome_element.send_keys('projeto.robo')
+#         pyautogui.hotkey('tab')
+#         print('### Passei usuário de liberação')
+
+#         navegador.find_element(By.ID, 'senha_liberacao_venda').click()
+#         nome_element = navegador.find_element(By.ID, 'senha_liberacao_venda')
+#         nome_element.send_keys('@rlequin@2020')
+#         pyautogui.hotkey('tab')
+#         print('### Passei senha de liberação')
+#         pyautogui.hotkey('ENTER')
+#         sleep(20)
+#         print("Aguardei 20 segundos.")
+
+#         # Clicar no botão "Salvar" novamente
+#         navegador.find_element(By.XPATH, '/html/body/div[9]/div/div/div[2]/button').click()
+#         sleep(12)
+#         navegador.find_element(By.XPATH, '//*[@id="botao_salvar"]').click()
+#         sleep(12)
+
+#         # Obter número do lançamento
+#         while True:
+#             try:
+#                 b_element = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[1]/div/b')
+#                 b_text = b_element.text
+#                 nr_lcto = b_text[14:19]
+#                 print('#### Número do lançamento: ', nr_lcto)
+#                 break
+#             except NoSuchElementException:
+#                 print("Aguardando elemento...")
+#                 sleep(1)
+
+#         sleep(20)
+
+#     except Exception as e:
+#         print(f"Ocorreu um erro: {str(e)}")
+
+#     finally:
+#         print("Encerrado função funcao_cadastrar_venda")
+# #         # navegador.quit()
+
 from selenium.common.exceptions import NoSuchElementException
 def cadastrar_venda(numero_cliente, numero_produto):
     try:
         global nr_lcto
+        hora_inicio = datetime.datetime.now()
+        print("Tempo iniciado")
         print('########## TELA PEDIDO DE VENDA ##########')
         navegador.get("https://felipe.testes.smart.sgisistemas.com.br/vendas")
 
-        # Preencher o campo "Cliente"
+        #Preencher o campo "Cliente"
         nome_element = navegador.find_element(By.ID, 'autocompletar_pessoa_cliente_fornecedor_id')
         nome_element.send_keys(numero_cliente)
         print('### Passei Cliente', numero_cliente)
-        sleep(5)
+        sleep(3)
         pyautogui.hotkey('down')
         pyautogui.hotkey('tab')
 
-        # Preencher o campo "Produto"
+        #Preencher o campo "Produto"
         nome_element = navegador.find_element(By.ID, 'coluna_descricao_produto')
         sleep(2)
         nome_element.send_keys(numero_produto)
@@ -612,44 +717,42 @@ def cadastrar_venda(numero_cliente, numero_produto):
         pyautogui.hotkey('tab')
         pyautogui.hotkey('ENTER')
 
-        # Preencher o campo "Quantidade"
-        sleep(3)
+        #Preencher o campo "Quantidade"
+        sleep(1)
         nome_element = navegador.find_element(By.ID, 'quantidade_local_estocagem_por_filial')
-        sleep(2)
+        sleep(1)
         nome_element.send_keys('1')
         print('### Passei quantidade.')
         pyautogui.hotkey('ENTER')
-        sleep(3)
+        sleep(1)
 
-        # Preencher o campo "Forma de Pagamento"
+        #Preencher o campo "Forma de Pagamento"
         nome_element = navegador.find_element(By.ID, 'forma_pagamento_id_0')
         nome_element.send_keys('V')
-        sleep(3)
+        sleep(1)
         pyautogui.hotkey('ENTER')
         print('### Passei forma de pagamento carnê')
 
-        # Preencher o campo "Quantidade de Parcelas"
+        #Preencher o campo "Quantidade de Parcelas"
         sleep(2)
         nome_element = navegador.find_element(By.XPATH, '//*[@id="parcela_0"]')
-        sleep(2)
+        sleep(1)
         nome_element.send_keys('0')
-        sleep(2)
+        sleep(1)
         print('### Passei quantidade de parcelas.')
-
-        # Clicar no botão "Salvar"
+        
+        #Clicar no botão "Salvar"
         navegador.find_element(By.XPATH, '//*[@id="botao_salvar"]').click()
-        #sleep(10)
-        print("Aguarda 20 segundos para liberação")
-        for segundo_atual in range(20, 0, -1):
+        print("Aguarda 15 segundos para liberação")
+        for segundo_atual in range(15, 0, -1):
             print(f"Tempo restante: {segundo_atual} segundos")
             sleep(1)
 
-        # Preencher campos de liberação
-        sleep(2)
+        #Preencher campos de liberação
         navegador.find_element(By.ID, 'login_liberacao_venda').click()
-        sleep(2)
+        sleep(0.5)
         nome_element = navegador.find_element(By.ID, 'login_liberacao_venda')
-        sleep(2)
+        sleep(0.5)
         nome_element.send_keys('projeto.robo')
         pyautogui.hotkey('tab')
         print('### Passei usuário de liberação')
@@ -660,16 +763,19 @@ def cadastrar_venda(numero_cliente, numero_produto):
         pyautogui.hotkey('tab')
         print('### Passei senha de liberação')
         pyautogui.hotkey('ENTER')
-        sleep(20)
-        print("Aguardei 20 segundos.")
-
-        # Clicar no botão "Salvar" novamente
+        
+        print("Aguarda 3 segundos - 2ªvez")
+        for segundo_atual in range(3, 0, -1):
+            print(f"Tempo restante: {segundo_atual} segundos")
+            sleep(1)
+    
+        #Clicar no botão "Salvar" novamente
         navegador.find_element(By.XPATH, '/html/body/div[9]/div/div/div[2]/button').click()
-        sleep(12)
+        sleep(0.3)
         navegador.find_element(By.XPATH, '//*[@id="botao_salvar"]').click()
-        sleep(12)
+        
 
-        # Obter número do lançamento
+        #Obter número do lançamento
         while True:
             try:
                 b_element = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[1]/div/b')
@@ -680,16 +786,18 @@ def cadastrar_venda(numero_cliente, numero_produto):
             except NoSuchElementException:
                 print("Aguardando elemento...")
                 sleep(1)
-
-        sleep(20)
+        hora_fim = datetime.datetime.now()
+        print("Tempo Finalizado")
 
     except Exception as e:
         print(f"Ocorreu um erro: {str(e)}")
 
     finally:
+        hora_fim = datetime.datetime.now()
+        tempo_total = (hora_fim - hora_inicio)
+        print("Tempo de execução", tempo_total)  
         print("Encerrado função funcao_cadastrar_venda")
-        # navegador.quit()
-
+        #navegador.quit()
 
 
 
@@ -1318,6 +1426,90 @@ def pedido_compra():
         print(">>>>>>>>>>>>>> Erro na tela! Verificar.")
 
 
+# from selenium.common.exceptions import NoSuchElementException
+# def venda_com_encomenda(numero_cliente, numero_produto):
+
+#     try:
+#         global nr_lcto
+#         nr_lcto = 0
+#         print('########## TELA PEDIDO DE VENDA (Venda Com Encomenda) ##########')
+#         navegador.get("https://felipe.testes.smart.sgisistemas.com.br/vendas")
+
+
+#         # Preencher o campo "Cliente"
+#         nome_element = navegador.find_element(By.ID, 'autocompletar_pessoa_cliente_fornecedor_id')
+#         nome_element.send_keys(numero_cliente)
+#         print('### Passei Cliente', numero_cliente)
+#         sleep(5)
+#         pyautogui.hotkey('down')
+#         pyautogui.hotkey('tab')
+
+#         # Preencher o campo "Produto"
+#         nome_element = navegador.find_element(By.ID, 'coluna_descricao_produto')
+#         sleep(2)
+#         nome_element.send_keys(numero_produto)
+#         print('### Passei produto.')
+#         sleep(2)
+#         pyautogui.hotkey('down')
+#         pyautogui.hotkey('tab')
+#         pyautogui.hotkey('ENTER')
+
+#         # Preencher o campo "Quantidade"
+#         sleep(5)
+#         nome_element = navegador.find_element(By.ID, 'quantidade_local_estocagem_por_filial')
+#         sleep(5)
+#         nome_element.send_keys('1')
+#         print('### Passei quantidade.')
+#         pyautogui.hotkey('ENTER')
+#         pyautogui.hotkey('tab')
+#         pyautogui.hotkey('tab')
+#         pyautogui.hotkey('tab')
+        
+#         # Marcar encomenda
+#         print("Buscar flag entrega")
+#         sleep(5)
+#         nome_element = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/div[2]/div[2]/form/div[16]/div/div[2]/div/div/div[1]/div[1]/table/tbody/tr/td[13]/label')
+#         sleep(5)
+#         print("Encontrado campo marcação de entrega")
+#         nome_element.click()
+#         print("Marquei a encomenda do produto.")
+
+
+
+#         # Preencher o campo "Forma de Pagamento"
+#         nome_element = navegador.find_element(By.ID, 'forma_pagamento_id_0')
+#         nome_element.send_keys('Dinheiro')
+#         sleep(5)
+#         pyautogui.hotkey('ENTER')
+#         print('### Passei forma de pagamento Dinheiro')
+
+    
+#         # Clicar no botão "Salvar"
+#         navegador.find_element(By.XPATH, '//*[@id="botao_salvar"]').click()
+#         #sleep(10)
+#         print("Aguarda 20 segundos para liberação")
+#         for segundo_atual in range(20, 0, -1):
+#             print(f"Tempo restante: {segundo_atual} segundos")
+#             sleep(1)
+
+#         sleep(20)
+#         # Obter número do lançamento
+#         b_element = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[1]/div/b')
+#         b_text = b_element.text
+#         nr_lcto = b_text[14:19]
+#         print('#### Número do lançamento: ', nr_lcto)
+#         sleep(12)
+
+
+
+               
+#     except Exception as e:
+#         print(f"Ocorreu um erro: {str(e)}")
+
+#     finally:
+#         print("Encerrado função funcao_cadastrar_venda")
+#         #navegador.quit()
+
 from selenium.common.exceptions import NoSuchElementException
 def venda_com_encomenda(numero_cliente, numero_produto):
 
@@ -1359,7 +1551,7 @@ def venda_com_encomenda(numero_cliente, numero_produto):
         # Marcar encomenda
         print("Buscar flag entrega")
         sleep(5)
-        nome_element = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/div[2]/div[2]/form/div[16]/div/div[2]/div/div/div[1]/div[1]/table/tbody/tr/td[13]/label')
+        nome_element = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/div[2]/div[2]/form/div[17]/div/div[2]/div/div/div[1]/div[1]/table/tbody/tr/td[13]/label')
         sleep(5)
         print("Encontrado campo marcação de entrega")
         nome_element.click()
@@ -1400,6 +1592,7 @@ def venda_com_encomenda(numero_cliente, numero_produto):
     finally:
         print("Encerrado função funcao_cadastrar_venda")
         #navegador.quit()
+
 
 def encomenda_de_produto():
     if nr_lcto == 0:
@@ -2246,10 +2439,11 @@ def cadastro_historico_receita_despesa():
        sleep(2)
        pyautogui.hotkey('down')
        pyautogui.hotkey('tab')
-       sleep(3)
-       navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/form/div[9]/div/input[1]').click()
-
-       sleep(3)
+       sleep(5)
+       bt_salvar = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/form/div[9]/div/input[1]')
+       sleep(2)
+       bt_salvar.click()
+       sleep(5)
 
        b_element = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[1]/div/b')
        b_text = b_element.text
@@ -2360,7 +2554,7 @@ else:
     erro = erro+1
 
 
-# Chamada de funções
+# # Chamada de funções
 cadastrar_venda("12546", "7410")
 analise_credito()
 faturamento_de_venda()
@@ -2387,7 +2581,7 @@ lancamento_entrada()
 venda_com_encomenda("12546", "7410")
 faturamento_de_venda()
 encomenda_de_produto()
-#pdv_oline()    
+# #pdv_oline()    
 conta_caixa_por_usuario()
 conta_corrente()
 simulacao_venda()
@@ -7659,7 +7853,7 @@ tempo_total = (hora_fim - hora_inicio)
 
 # Configurações do email
 email_remetente = 'felipe.rossi@sgisistemas.com.br'
-email_destinatarios = ['feliperossihav@icloud.com', 'sgi.felipe@gmail.com']  # Lista de destinatários
+email_destinatarios = ['desenv@sgisistemas.com.br', 'feliperossihav@icloud.com', 'sgi.felipe@gmail.com']  # Lista de destinatários
 senha_remetente = '3971175Sgi!'  # Senha do remetente
 
 # Construindo o email
@@ -7707,6 +7901,7 @@ if nr_lcto == 0:
     cadastro_subgrupo()
     cadastro_produto()
     caixaconta_por_usuario()
+    pdv_oline()
     conta_corrente()
     simulacao_venda()
     cadastro_grupo_receita_despesa()
@@ -7747,7 +7942,8 @@ else:
     cadastro_grupo()
     cadastro_subgrupo()
     cadastro_produto()
-    caixaconta_por_usuario()
+    caixa_conta_por_usuario()
+    pdv_oline()
     conta_corrente()
     simulacao_venda()
     cadastro_grupo_receita_despesa()
