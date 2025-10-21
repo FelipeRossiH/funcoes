@@ -1,11 +1,11 @@
 name: Rodar meu robozinho
 
 on:
-  workflow_dispatch:   # cria botão "Run workflow" no GitHub Actions
+  workflow_dispatch:   # cria botão "Run workflow" na aba Actions
 
 jobs:
   run-robo:
-    runs-on: [self-hosted, Windows, gui]
+    runs-on: [self-hosted, Windows, gui]   # garante que rode só no seu PC
     steps:
       - name: Baixar o código
         uses: actions/checkout@v4
