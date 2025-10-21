@@ -1,18 +1,25 @@
 name: Rodar meu robozinho
 
-on: [push]   # dispara quando você fizer push de código novo
+on:
+  workflow_dispatch:   # cria botão "Run workflow" no GitHub Actions
 
 jobs:
   run-robo:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, Windows, gui]
     steps:
       - name: Baixar o código
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Instalar Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
+      - name: Instalar dependências
+        run: |
+          py -m pip install --upgrade pip
+          py -m pip install pyautogui pillow opencv-python
+
       - name: Rodar o script
-        run: python robo_v10.py
+        shell: powershell
+        run: py robo_v10.py
