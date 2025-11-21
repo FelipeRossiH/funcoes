@@ -758,6 +758,27 @@ def cadastrar_venda(numero_cliente, numero_produto):
         sleep(5)
         nome_element = navegador.find_element(By.ID, 'login_liberacao_venda')
         sleep(5)
+        nome_element.send_keys('robo.robo')
+        pyautogui.hotkey('tab')
+        print('### Passei usuário de liberação')
+
+        navegador.find_element(By.ID, 'senha_liberacao_venda').click()
+        nome_element = navegador.find_element(By.ID, 'senha_liberacao_venda')
+        nome_element.send_keys('Robo123')
+        pyautogui.hotkey('tab')
+        print('### Passei senha de liberação')
+        pyautogui.hotkey('ENTER')
+        
+        print("Aguarda 10 segundos - 2ªvez")
+        for segundo_atual in range(10, 0, -1):
+            print(f"Tempo restante: {segundo_atual} segundos")
+            sleep(1)
+
+        #Preencher campos de liberação
+        navegador.find_element(By.ID, 'login_liberacao_venda').click()
+        sleep(5)
+        nome_element = navegador.find_element(By.ID, 'login_liberacao_venda')
+        sleep(5)
         nome_element.send_keys('projeto.robo')
         pyautogui.hotkey('tab')
         print('### Passei usuário de liberação')
@@ -773,6 +794,8 @@ def cadastrar_venda(numero_cliente, numero_produto):
         for segundo_atual in range(10, 0, -1):
             print(f"Tempo restante: {segundo_atual} segundos")
             sleep(1)
+
+        
     
         #Clicar no botão "Salvar" novamente
         print("Localizar botão salvão")
