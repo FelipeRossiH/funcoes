@@ -561,6 +561,8 @@ def cadastrar_pessoa():
     sleep(2)
     navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/form/div[18]/ul/li[2]/a').click()
     sleep(2)    
+    navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/form/div[18]/ul/li[3]/a').click()
+    sleep(2)
     navegador.find_element(By.XPATH, '//*[@id="tipo_endereco_id_0"]').click()
     nome_element = navegador.find_element(By.XPATH, '//*[@id="tipo_endereco_id_0"]')
     nome_element.send_keys('R')
@@ -758,27 +760,6 @@ def cadastrar_venda(numero_cliente, numero_produto):
         sleep(5)
         nome_element = navegador.find_element(By.ID, 'login_liberacao_venda')
         sleep(5)
-        nome_element.send_keys('robo.robo')
-        pyautogui.hotkey('tab')
-        print('### Passei usuário de liberação')
-
-        navegador.find_element(By.ID, 'senha_liberacao_venda').click()
-        nome_element = navegador.find_element(By.ID, 'senha_liberacao_venda')
-        nome_element.send_keys('Robo123')
-        pyautogui.hotkey('tab')
-        print('### Passei senha de liberação')
-        pyautogui.hotkey('ENTER')
-        
-        print("Aguarda 10 segundos - 2ªvez")
-        for segundo_atual in range(10, 0, -1):
-            print(f"Tempo restante: {segundo_atual} segundos")
-            sleep(1)
-
-        #Preencher campos de liberação
-        navegador.find_element(By.ID, 'login_liberacao_venda').click()
-        sleep(5)
-        nome_element = navegador.find_element(By.ID, 'login_liberacao_venda')
-        sleep(5)
         nome_element.send_keys('projeto.robo')
         pyautogui.hotkey('tab')
         print('### Passei usuário de liberação')
@@ -786,6 +767,33 @@ def cadastrar_venda(numero_cliente, numero_produto):
         navegador.find_element(By.ID, 'senha_liberacao_venda').click()
         nome_element = navegador.find_element(By.ID, 'senha_liberacao_venda')
         nome_element.send_keys('@rlequin@2020')
+        pyautogui.hotkey('tab')
+        print('### Passei senha de liberação')
+        pyautogui.hotkey('ENTER')
+        sleep(2)
+        nome_element = navegador.find_element(By.XPATH, '/html/body/div[10]/div/div/div[2]/button').click()
+        sleep(2)
+        nome_element = navegador.find_element(By.XPATH, '//*[@id="login_liberacao_venda"]').click()
+        sleep(2)
+
+        print("2ªvez")
+        for segundo_atual in range(10, 0, -1):
+            print(f"Tempo restante: {segundo_atual} segundos")
+            sleep(1)
+
+        #Preencher campos de liberação
+        navegador.find_element(By.ID, 'login_liberacao_venda').click()
+        sleep(2)
+        navegador.find_element(By.ID, 'login_liberacao_venda').clear()
+        nome_element = navegador.find_element(By.ID, 'login_liberacao_venda')
+        sleep(5)
+        nome_element.send_keys('robo.robo')
+        pyautogui.hotkey('tab')
+        print('### Passei usuário de liberação')
+
+        navegador.find_element(By.ID, 'senha_liberacao_venda').click()
+        nome_element = navegador.find_element(By.ID, 'senha_liberacao_venda')
+        nome_element.send_keys('Robo123')
         pyautogui.hotkey('tab')
         print('### Passei senha de liberação')
         pyautogui.hotkey('ENTER')
@@ -895,7 +903,7 @@ def gestao_entrega():
     print("########## TELA GESTÃO DE ENTREGA ##########")
     navegador.get("https://felipe.testes.smart.sgisistemas.com.br/reservas_produtos")
     print('Abrir + Filtros.')
-    navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/div[1]/form/div/div[2]/div[2]/div/div[17]/a').click()
+    navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/div[1]/form/div/div[2]/div[2]/div/div[16]/a').click()
     print('Localiza campo Nº Lançamento. ')
     nome_element = navegador.find_element(By.XPATH, '//*[@id="numero_lancamento"]')
     nome_element.send_keys(nr_lcto)
@@ -923,13 +931,26 @@ def gestao_entrega():
     navegador.find_element(By.XPATH, '/html/body/div[8]/div/div/div[2]/button[2]').click()
     print('cliquei')
     sleep(10)
-    campo_nr_romaneio = navegador.find_element(By.XPATH, '//*[@id="id"]')
-    nro_romaneio = campo_nr_romaneio.get_attribute("value")
-    sleep(2)
-    print("Nº Romaneio: ", nro_romaneio)
+    
+    # Reobter o elemento APÓS a alteração do DOM para evitar StaleElementReferenceException
+    nro_romaneio = None
+    try:
+        campo_nr_romaneio = navegador.find_element(By.XPATH, '//*[@id="id"]')
+        sleep(2)
+        nro_romaneio = campo_nr_romaneio.get_attribute("value")
+        sleep(2)
+        print("Nº Romaneio: ", nro_romaneio)
+    except Exception as e:
+        print(f"Erro ao obter Nº Romaneio: {e}")
+        nro_romaneio = "Não foi possível obter"
 
   finally:
     print('Encerrando função gestao_entrega')
+    if nro_romaneio:
+        print("Nº Romaneio: ", nro_romaneio)
+    else:
+        print("Nº Romaneio não foi capturado")
+    
 
 
 def gera_titulo():
@@ -1139,7 +1160,7 @@ def analise_credito():
     nome_element.send_keys(nr_lcto)
     print("Pesquisar lançamento para análise")
     sleep(3)
-    navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/div/form/div/div[2]/div[2]/div/div[18]/div/button[1]').click()
+    navegador.find_element(By.XPATH, '//*[@id="item_collapse_filtros"]/div/div[4]/div/button[1]').click()
     sleep(3)
     navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/div/div[2]/div[2]/table/tbody/tr/td[1]/a').click()
     sleep(3)
@@ -1211,8 +1232,8 @@ def devolucao_venda():
         pyautogui.hotkey('down')
         pyautogui.hotkey('down')
         pyautogui.hotkey('Enter')
-        sleep(3)
-        nome_element = navegador.find_element(By.XPATH, '//*[@id="quantidade"]')
+        sleep(5)
+        nome_element = navegador.find_element(By.XPATH, "//*[@id='coluna_quantidade_produto']")
         nome_element.send_keys(1)
         pyautogui.hotkey('tab')
         print("Localizar e informar justificativa")
@@ -1309,7 +1330,7 @@ def lancamento_entrada():
     sleep(2)
     cst_icms.click()
     sleep(2)
-    inf_cst = navegador.find_element(By.XPATH, '//*[@id="autocompletar_cst_icms_id_0"]')
+    inf_cst = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/div[1]/div[2]/form/div[18]/div/div[2]/div/div[2]/table/tbody/tr/td[13]')
     sleep(5)
     inf_cst.send_keys('41')
     print("Cliquei na coluna CST ICMS")
@@ -1321,7 +1342,7 @@ def lancamento_entrada():
 
     sleep(1)
 
-    vlr_unit = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/div[1]/div[2]/form/div[18]/div/div[2]/div/div[2]/table/tbody/tr/td[8]/div[1]')
+    vlr_unit = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/div[1]/div[2]/form/div[18]/div/div[2]/div/div[2]/table/tbody/tr/td[9]/div[1]')
     sleep(5)
     vlr_unit.click()
     sleep(5)
@@ -1336,10 +1357,10 @@ def lancamento_entrada():
     print("Informei novo valor unitário.")
     sleep(5)
 
-    forma_pgto = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/div[1]/div[2]/form/div[22]/div/div[2]/div/div[1]/div/div[1]/div/div/div/button/span[1]')
+    forma_pgto = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/div[1]/div[2]/form/div[23]/div/div[2]/div/div[1]/div/div[1]/div/div/div/button/span[1]')
     forma_pgto.click()
     sleep(5)
-    busca_forma_pgto = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/div[1]/div[2]/form/div[22]/div/div[2]/div/div[1]/div/div[1]/div/div/div/div/div/input')
+    busca_forma_pgto = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/div[1]/div[2]/form/div[23]/div/div[2]/div/div[1]/div/div[1]/div/div/div/div/div/input')
     sleep(5)
     busca_forma_pgto.send_keys('BOLETO')
     sleep(5)
@@ -2638,7 +2659,7 @@ funcao_gera_sped_contribuicao()
 funcao_gera_cobranca()
 devolucao_venda()
 pedido_compra()
-# lancamento_entrada()
+lancamento_entrada()
 #pdv_oline()    
 conta_caixa_por_usuario()
 conta_corrente()
@@ -7794,7 +7815,7 @@ navegador.get("https://felipe.testes.smart.sgisistemas.com.br/autorizacoes_pagam
 print('### Acessei Autorização de Pagamento')
 tela = tela + 1
 print('Tela: ', tela)
-error_message = navegador.find_elements(By.NAME,"filtros[fornecedor]")
+error_message = navegador.find_elements(By.ID,"fornecedor")
 if error_message:
     print("A página foi aberta")
 else:
