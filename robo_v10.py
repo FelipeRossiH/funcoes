@@ -24,7 +24,7 @@ from selenium.common.exceptions import TimeoutException, NoSuchElementException
 
 navegador = Firefox()
 smart = 'https://felipe.testes.smart.sgisistemas.com.br/'
-#smart_home = 'https://felipe.testes.smart.sgisistemas.com.br/'
+smart_home = 'https://felipe.testes.smart.sgisistemas.com.br/'
 cont = 0
 erro = 0
 nr_lcto = 0
@@ -76,7 +76,7 @@ def cadastro_e_alteracao_de_escolaridade():
         sleep(2)
         navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/form/div[3]/div/a[2]').click()
         sleep(2)
-        navegador.find_element(By.XPATH, '/html/body/div[8]/div/div/div[2]/button[2]').click()
+        navegador.find_element(By.XPATH, '/html/body/div[11]/div/div/div[2]/button[2]').click()
         sleep(5)
         b_element = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[1]/div/div')
         b_text = b_element.text
@@ -129,7 +129,7 @@ def cadastro_e_alteracao_de_tipo_dependente():
         sleep(1)
         navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/form/div[2]/div/a[2]').click()
         sleep(1)
-        navegador.find_element(By.XPATH, '/html/body/div[8]/div/div/div[2]/button[2]').click()
+        navegador.find_element(By.XPATH, '//html/body/div[11]/div/div/div[2]/button[2]').click()
         sleep(5)
 
         b_element = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[1]/div/div')
@@ -209,7 +209,7 @@ def configuracoes_mva_antecipacoes():
 
         # Confirme a exclusão
         sleep(2)
-        navegador.find_element(By.XPATH, '/html/body/div[8]/div/div/div[2]/button[2]').click()
+        navegador.find_element(By.XPATH, '/html/body/div[11]/div/div/div[2]/button[2]').click()
         print('### Excluído cadastro')
 
     finally:
@@ -256,7 +256,7 @@ def configuracao_tipo_servico():
 
         # Espera até que o botão de confirmação esteja clicável
         confirm_button = WebDriverWait(navegador, 10).until(
-            EC.element_to_be_clickable((By.XPATH, '/html/body/div[8]/div/div/div[2]/button[2]'))
+            EC.element_to_be_clickable((By.XPATH, '//html/body/div[11]/div/div/div[2]/button[2]'))
         )
         confirm_button.click()
         print('### Excluído cadastro')
@@ -385,7 +385,7 @@ def adicionar_especificacao_produto():
 
         
         WebDriverWait(navegador, 10).until(
-            EC.element_to_be_clickable((By.XPATH, '/html/body/div[8]/div/div/div[2]/button[2]'))
+            EC.element_to_be_clickable((By.XPATH, '/html/body/div[11]/div/div/div[2]/button[2]'))
         ).click()
 
         print('Realizado exclusão de especificação do produto')
@@ -493,7 +493,7 @@ def configuracoes_tipos_montagens_produtos():
          sleep(3)
          navegador.find_element(By.XPATH,'/html/body/div[4]/div[1]/div[2]/div[2]/form/div[8]/div/a[2]').click()
          sleep(2)
-         navegador.find_element(By.XPATH,'/html/body/div[8]/div/div/div[2]/button[2]').click()
+         navegador.find_element(By.XPATH,'/html/body/div[11]/div/div/div[2]/button[2]').click()
          print('Realizado exclusão')
          sleep(3)
 
@@ -771,7 +771,7 @@ def cadastrar_venda(numero_cliente, numero_produto):
         print('### Passei senha de liberação')
         pyautogui.hotkey('ENTER')
         sleep(2)
-        nome_element = navegador.find_element(By.XPATH, '/html/body/div[10]/div/div/div[2]/button').click()
+        nome_element = navegador.find_element(By.XPATH, '/html/body/div[13]/div/div/div[2]/button').click()
         sleep(2)
         nome_element = navegador.find_element(By.XPATH, '//*[@id="login_liberacao_venda"]').click()
         sleep(2)
@@ -804,17 +804,19 @@ def cadastrar_venda(numero_cliente, numero_produto):
             sleep(1)
 
         
-    
+        navegador.find_element(By.XPATH, '/html/body/div[12]/div/div/div[2]/button').click()
+
+        sleep(5)
         #Clicar no botão "Salvar" novamente
         print("Localizar botão salvão")
-        navegador.find_element(By.XPATH, '/html/body/div[9]/div/div/div[2]/button').click()
+        navegador.find_element(By.XPATH, '//*[@id="botao_salvar"]').click()
         print("Cliquei no salvar")
         print("Aguarda 10 segundos no Salvar")
         for segundo_atual in range(10, 0, -1):
             print(f"Tempo restante: {segundo_atual} segundos")
             sleep(1)
         print('Salvar')
-        navegador.find_element(By.XPATH, '//*[@id="botao_salvar"]').click()
+        #navegador.find_element(By.XPATH, '//*[@id="botao_salvar"]').click()
 
         for segundo_atual in range(15, 0, -1):
             print(f"Tempo restante: {segundo_atual} segundos")
@@ -928,28 +930,18 @@ def gestao_entrega():
     navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/form/div[2]/div[2]/div[1]/ul/li[1]/a').click()
     sleep(2)
     print('Clicaer no salvar...')
-    navegador.find_element(By.XPATH, '/html/body/div[8]/div/div/div[2]/button[2]').click()
+    navegador.find_element(By.XPATH, '/html/body/div[11]/div/div/div[2]/button[2]').click()
     print('cliquei')
     sleep(10)
-    
-    # Reobter o elemento APÓS a alteração do DOM para evitar StaleElementReferenceException
-    nro_romaneio = None
-    try:
-        campo_nr_romaneio = navegador.find_element(By.XPATH, '//*[@id="id"]')
-        sleep(2)
-        nro_romaneio = campo_nr_romaneio.get_attribute("value")
-        sleep(2)
-        print("Nº Romaneio: ", nro_romaneio)
-    except Exception as e:
-        print(f"Erro ao obter Nº Romaneio: {e}")
-        nro_romaneio = "Não foi possível obter"
+    campo_nr_romaneio = navegador.find_element(By.XPATH, '//*[@id="id"]')
+    sleep(2)
+    nro_romaneio = campo_nr_romaneio.get_attribute("value")
+    sleep(2)
+    print("Nº Romaneio: ", nro_romaneio)
 
   finally:
     print('Encerrando função gestao_entrega')
-    if nro_romaneio:
-        print("Nº Romaneio: ", nro_romaneio)
-    else:
-        print("Nº Romaneio não foi capturado")
+#   print("Nº Romaneio: ", nro_romaneio)
     
 
 
@@ -1161,12 +1153,13 @@ def analise_credito():
     print("Pesquisar lançamento para análise")
     sleep(3)
     navegador.find_element(By.XPATH, '//*[@id="item_collapse_filtros"]/div/div[4]/div/button[1]').click()
+    # input("Enter para seguir")
     sleep(3)
     navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/div/div[2]/div[2]/table/tbody/tr/td[1]/a').click()
     sleep(3)
     navegador.find_element(By.XPATH, '//*[@id="btn_analise_credito"]').click()
     sleep(3)
-    navegador.find_element(By.XPATH, '/html/body/div[9]/div/div/div[2]/button[2]').click()
+    navegador.find_element(By.XPATH, '/html/body/div[12]/div/div/div[2]/button[2]').click()
     sleep(5)
     print("Aba Financeiro")
     navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/form/div[1]/div/div[5]/div[2]/div[1]/div[1]/div/div/div[2]/div/ul/li[2]/a/strong').click()
@@ -1246,7 +1239,7 @@ def devolucao_venda():
         print("Finalizando devolução")
         navegador.find_element(By.ID, 'botao_devolve').click()
         sleep(2)
-        navegador.find_element(By.XPATH, '/html/body/div[8]/div/div/div[2]/button[2]').click()
+        navegador.find_element(By.XPATH, '/html/body/div[11]/div/div/div[2]/button[2]').click()
         sleep(8)
         abas = navegador.window_handles
 
@@ -1380,7 +1373,7 @@ def lancamento_entrada():
 
     navegador.find_element(By.XPATH, '//*[@id="emitir_documento"]').click()
     sleep(10)
-    navegador.find_element(By.XPATH, '/html/body/div[9]/div/div/div[2]/button[2]').click()
+    navegador.find_element(By.XPATH, '/html/body/div[12]/div/div/div[2]/button[2]').click()
     print("Finalizado lançamento.")
     sleep(20)
 
@@ -2251,7 +2244,7 @@ def cadastro_grupo_receita_despesa():
        btn_exclusao = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/form/div[2]/div/a[2]')
        btn_exclusao.click()
        sleep(2)
-       btn_confirma = navegador.find_element(By.XPATH, '/html/body/div[8]/div/div/div[2]/button[2]')
+       btn_confirma = navegador.find_element(By.XPATH, '/html/body/div[11]/div/div/div[2]/button[2]')
        btn_confirma.click()
 
        sleep(3)
@@ -2357,7 +2350,7 @@ def cadastro_subgrupo_historico_receita_despesa():
        sleep(2)
        navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/form/div[3]/div/a[2]').click()
        sleep(2)
-       navegador.find_element(By.XPATH, '/html/body/div[8]/div/div/div[2]/button[2]').click()
+       navegador.find_element(By.XPATH, '/html/body/div[11]/div/div/div[2]/button[2]').click()
        sleep(2)
 
        b_element = navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[1]/div/div')
@@ -2475,7 +2468,7 @@ def cadastro_historico_receita_despesa():
        navegador.find_element(By.XPATH, '/html/body/div[4]/div[1]/div[2]/div[2]/form/div[15]/div/a[2]').click()
        sleep(2)
        # input("Enter")
-       navegador.find_element(By.XPATH, '/html/body/div[8]/div/div/div[2]/button[2]').click()
+       navegador.find_element(By.XPATH, '/html/body/div[11]/div/div/div[2]/button[2]').click()
        sleep(2)
        # input("Enter")
 
